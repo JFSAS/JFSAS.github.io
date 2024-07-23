@@ -3,16 +3,16 @@
 layout: home
 
 hero:
-  name: "my first site"
-  text: "mybe a blog"
+  name: "JFS's blog "
+  text: "collect notes and share ideas"
   tagline: My great project tagline
   actions:
     - theme: brand
       text: Markdown Examples
       link: /markdown-examples
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: note
+      link: /note/disk/磁盘分区
 
 features:
   - title: Feature A

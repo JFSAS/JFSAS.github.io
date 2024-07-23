@@ -1,22 +1,33 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress' // 使用 defineConfig 辅助函数将为配置选项提供 TypeScript 支持的智能提示
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "my first site",
-  description: "mybe a blog",
+  title: "JFS's Blog",
+  description: "This is JFS's Blog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: '主页', link: '/' },
+      { text: '笔记', link: '/markdown-examples' }
     ],
 
     sidebar: [
       {
-        text: 'Examples',
+        text: '笔记',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          {
+            text:"linux",
+            items:[
+                {text: '硬盘分区', link: '/note/disk/磁盘分区'},
+                {text: '网络配置', link: '/note/信息收集'}
+            ]
+          }
+        ]
+      },
+      {
+        text: '工具',
+        items: [
+          { text: '占位', link: '/api-examples' }
         ]
       }
     ],
