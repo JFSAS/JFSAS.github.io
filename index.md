@@ -12,7 +12,8 @@ hero:
       link: /markdown-examples
     - theme: alt
       text: note
-      link: /note/disk/磁盘分区
+      link: /note/linux/磁盘分区与挂载/磁盘分区与挂载.md
+
 
 features:
   - title: Feature A

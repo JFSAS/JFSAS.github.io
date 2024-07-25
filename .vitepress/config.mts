@@ -18,10 +18,18 @@ export default defineConfig({
           {
             text:"linux",
             items:[
-                {text: '硬盘分区', link: '/note/linux/磁盘分区.md'},
+                {text: '硬盘分区', link: '/note/linux/磁盘分区与挂载/磁盘分区与挂载.md'},
+                {text: 'shell配置', link: '/note/linux/shell配置/shell配置.md'},
                 {text: 'todo', link: '/note'}
             ]
           },
+          {
+            text:"git",
+            items:[
+
+              {text: '仓库里包含仓库',link: '/note/git/仓库里包含仓库/仓库里包含仓库.md'},
+            ]
+          }
 
         ]
       },
