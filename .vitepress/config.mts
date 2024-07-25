@@ -18,10 +18,11 @@ export default defineConfig({
           {
             text:"linux",
             items:[
-                {text: '硬盘分区', link: '/note/disk/磁盘分区'},
-                {text: '网络配置', link: '/note/信息收集'}
+                {text: '硬盘分区', link: '/note/linux/磁盘分区.md'},
+                {text: 'todo', link: '/note'}
             ]
-          }
+          },
+
         ]
       },
       {
