@@ -6,9 +6,13 @@ export default defineConfig({
   description: "This is JFS's Blog",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    search: {
+      provider: 'local',
+    },
     nav: [
       { text: '主页', link: '/' },
-      { text: '笔记', link: '/markdown-examples' }
+      { text: '笔记', link: '/markdown-examples' },
+      { text: '项目', link: '/api-examples' }
     ],
 
     sidebar: [
@@ -17,6 +21,7 @@ export default defineConfig({
         items: [
           {
             text:"linux",
+            collapsed: true,
             items:[
                 {text: '硬盘分区', link: '/note/linux/磁盘分区与挂载/磁盘分区与挂载.md'},
                 {text: 'shell配置', link: '/note/linux/shell配置/shell配置.md'},
@@ -25,6 +30,7 @@ export default defineConfig({
           },
           {
             text:"git",
+            collapsed: true,
             items:[
 
               {text: '仓库里包含仓库',link: '/note/git/仓库里包含仓库/仓库里包含仓库.md'},
