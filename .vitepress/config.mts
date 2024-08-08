@@ -35,6 +35,39 @@ export default defineConfig({
 
               {text: '仓库里包含仓库',link: '/note/git/仓库里包含仓库/仓库里包含仓库.md'},
             ]
+          },
+          {
+            text:"deep learning",
+            collapsed: true,
+            items:[
+              {
+                text: '论文',
+                items:[
+                  {text: '基于生成式到判别式的蒙面人脸识别',link : '/note/深度学习/基于生成到判别表征的蒙面人脸识别/G2D.md'},
+                  {text: "人脸生成ICT模型",link: '/note/深度学习/ICT模型/ICT.md'}
+                ],
+              },
+              {
+                text: '深度学习基础',
+                items:[
+                  {text: 'CNN',link: 'note/深度学习/深度学习基础/CNN.md'}
+                ]
+              },
+              {
+                text: 'opencv-py',
+                items:[
+                  {text : 'opencv-py',link:'opencv-py.md'}
+                ]
+              },
+              {
+                text:'pytorch',
+                items:[
+                  {text: '00_pytorch_foundmental',link:'note/深度学习/pytorch/00_torch.md'},
+                  {text: '01_pytorch_workflow',link:'note/深度学习/pytorch/01_pytorch_workflow.md'},
+                  {text: 'usage_of_helpfn.ipynb',link:'note/深度学习/pytorch/usage_of_helpfn.md'},
+                ]
+              }
+            ]
           }
 
         ]
