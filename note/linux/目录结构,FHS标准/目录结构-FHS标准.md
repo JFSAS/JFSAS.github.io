@@ -4,6 +4,7 @@
 使用者，都能够遵循FHS的标准。 也就是说，FHS的重点在于规范每个特定的目录下应该要
 放置什么样子的数据而已。 这样做好处非常多，因为Linux操作系统就能够在既有的面貌下
 （目录架构不变）发展出开发者想要的独特风格。
+FHS所定义的三层主目录为：/, /var, /usr三层而已
 ## FHS标准的目录结构
 - / （root）：根目录；
   > FHS标准建议：根目录（/）所在分区应该越小越好， 且应用程序所安装的软件最好不要
@@ -31,3 +32,25 @@
 - /run （run）：系统启动后,程序运行时的信息；
 - /srv （service）：服务启动后,网络服务启动后,服务取用的数据目录,如网页服务数据放在/srv/www/中；
 ## usr目录的意义与内容
+FHS建议/usr里防止数据属于可分享与不可变动，所有软件开发者应该将他们的数据放置到这个目录下的次目录。
+- /usr/bin：和/bin是一模一样的，/bin是链接到/usr/bin的，/bin是为了在单人维护模式下还能够被操作的指令；
+- /usr/lib 和/lib是一模一样的，/lib是链接到/usr/lib的，/lib就是/usr/lib的软链接；
+![alt text](image.png)
+- /usr/sbin 同被sbin链接
+- /usr/local 系统管理员安装的软件建议安装到这个目录
+- usr/share 主要是只读文件/usr/share/man：线上说明
+文档 /usr/share/doc：软件杂项的文件说明 /usr/share/zoneinfo：与时
+区有关的时区文件
+- usr/src 源码文件
+## /var 目录的意义
+/var目录主要针对常态性变动的文件，包括高速缓存（cache）、登录文件
+（log file）以及某些软件运行所产生的文件， 包括程序文件（lock file, run file），或者例如
+MySQL数据库的文件等等
+  常见次级目录
+- /var/cache 应用程序本身运行中的一些暂存盘
+- /var/lib 应用程序的数据文件如，MySQL的数据库放置到/var/lib/mysql/而rpm的数据库则放到/var/lib/rpm去
+- /var/lock 链接到/run/lock 锁定设备或者文件资源
+- /var/log 系统日志文件
+- var/mail 邮件信箱
+- var/run 系统启动后,PID目录，链接到/run
+
