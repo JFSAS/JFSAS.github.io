@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Masked face recognition using domain adaptation 论文 -- 细读 2024.9 由于缺乏带有身份标签的真实世界蒙面人脸数据集，大多数现有蒙面人脸识别方法直接在从现有未蒙面人脸数据集生成的合成蒙面人脸上重新训练模型[ 10 ]。这种方法的主要缺点是使用合成蒙面人脸不能保证人脸识别系统对现实世界蒙面人脸的性能。 introduce 该网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="领域适应在MFR中的应用">
+<meta property="og:url" content="http://example.com/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Masked face recognition using domain adaptation 论文 -- 细读 2024.9 由于缺乏带有身份标签的真实世界蒙面人脸数据集，大多数现有蒙面人脸识别方法直接在从现有未蒙面人脸数据集生成的合成蒙面人脸上重新训练模型[ 10 ]。这种方法的主要缺点是使用合成蒙面人脸不能保证人脸识别系统对现实世界蒙面人脸的性能。 introduce 该网络">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-29T17:22:02.000Z">
+<meta property="article:modified_time" content="2024-09-29T17:24:08.721Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="人脸识别">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>领域适应在MFR中的应用 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>JFS&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="领域适应在MFR中的应用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-30 01:22" pubdate>
+          2024年9月30日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">领域适应在MFR中的应用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="masked-face-recognition-using-domain-adaptation">Masked face
+recognition using domain adaptation</h1>
+<p><a
+target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S003132032400325X">论文</a>
+-- 细读 2024.9</p>
+<p>由于缺乏带有身份标签的真实世界蒙面人脸数据集，大多数现有蒙面人脸识别方法直接在从现有未蒙面人脸数据集生成的合成蒙面人脸上重新训练模型[
+<a
+target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/pii/S003132032400325X#bib0010">10</a>
+]。这种方法的主要缺点是<strong>使用合成蒙面人脸不能保证人脸识别系统对现实世界蒙面人脸的性能</strong>。</p>
+<h2 id="introduce">introduce</h2>
+<p>该网络使用了1）ResNet50作为网络的主干2）基于自注意力的refinement
+layer 3）使用领域对抗学习网络（DANN）来利用合成人脸和真实人脸。</p>
+<p><strong>真实人脸数据只有是否遮挡的标签，而没有身份标签。</strong></p>
+<p>2）refinement layer
+利用注意力分数损失来对其遮挡和未遮挡人脸的激活区域。能够减少遮挡人脸和未遮挡人脸的类内差距，进而增强鲁棒性。</p>
+<p>3） 领域对抗学习网络用来使真实人脸和遮挡人脸的特征分布一致。</p>
+<p>领域适应在人脸识别领域早有运用，例如人脸识别适应低分辨率图像，适应不同姿势人脸图像。</p>
+<p>source domain -&gt; 未遮挡人脸 target domain -&gt; 遮挡人脸</p>
+<h2 id="普通人脸识别在masked-face-上的表现分析">普通人脸识别在masked
+face 上的表现分析</h2>
+<p>人脸识别任务可以分为两类：</p>
+<ul>
+<li>face verification --&gt; 1：1识别即识别人脸对是否匹配</li>
+<li>face identify --&gt; 1:n
+识别从人脸数据库中找到与输入人脸图片最匹配的图片</li>
+</ul>
+<p>start-of-the-art 人脸识别器使 ArcFace</p>
+
+<h3 id="pure-arcface">pure ArcFace</h3>
+<p>合成遮挡人脸使利用<em>MaskTheFace</em> 软件生成，即从LFW（Labeld
+Faces in the Wild）到MLFW。</p>
+<p>模型的训练论文中没有给出，不知道是哪来的预训练模型</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LFW</td>
+<td>99.3%</td>
+</tr>
+<tr>
+<td>MLFW</td>
+<td>96.2%</td>
+</tr>
+</tbody>
+</table>
+<p>从激活区域可视化中可以看到，遮挡人脸和未遮挡人脸在激活区域的分布上不同</p>
+<p>未遮挡人脸是整个面部激活，遮挡人脸只有上部是激活的。</p>
+<blockquote>
+<p>意思是要训练之后修改模型对遮挡人脸改为也是上部人脸激活，这样遮挡人脸和未遮挡人脸通过模型获得的表征会更加接近，以此来提高真确率</p>
+<p>这样可能会有一个问题，模型不具备对上部人脸遮挡图像的识别能力。</p>
+</blockquote>
+<p>对提取的特征使用PCA（主成分提取）得到的特征分布并没有完全重叠。</p>
+<h3 id="retrained-arcface---using-synthetically-face">Retrained ArcFace
+--using synthetically face</h3>
+<p>利用MaskTheFace从 CASIA-WebFace得到MCASIA-WebFace</p>
+<p>然后再MCASIA-WebFace上进行了Retrain</p>
+<p>再MLFW上得到了98.5%的verification正确率，相比于pure有2.3%的提高</p>
+<blockquote>
+<p>:satisfied:
+高于G2D模型的97.75%，G2D模型的结果居然还没这个的baseline高</p>
+</blockquote>
+<p>从激活区域图中c可以看到对下部区域的激活减弱了。</p>
+<p>对提取的特征使用PCA（主成分提取）得到的特征分布再合成人脸上重合了，但是在真实人脸上没有重合。</p>
+<blockquote>
+<p>PCA:从高维特征中提取到低维特征表示，类似于投影</p>
+</blockquote>
+<h3 id="proposed-method">Proposed method</h3>
+
+<ol type="1">
+<li>feature Extraction Backbone 可以是残差网络如ResNet-18
+，ResNet-50，用来提取特征的</li>
+<li>feature Refinement layer
+是一个transformer，是用来对其激活区域的</li>
+<li>Identity Classification Layer 是一个分类损失层，可以用ArcFace</li>
+<li>Domain Adaptation Layer 是用来领域适应，特征分布转换。</li>
+</ol>
+<h4 id="feature-refinemnet-layer">2. Feature refinemnet layer</h4>
+
+<p>用来对激活区域进行对齐来提取关键特征的。是一个自注意力机制块，自注意力分数和value相乘输出</p>
+<p>所以
+<strong>注意力得分高的就可以代表这个区域是高度激活的</strong>。</p>
+<h4 id="domain-adaptation-layer">4.Domain Adaptation Layer</h4>
+<p>为了解决特征分布不重合的问题</p>
+
+<p>使用Mask Label训练。</p>
+<p>使用领域对抗（DANN）网络训练（与GAN网络类似），有一个generator和一个discriminator。</p>
+<p>discriminator是要从generator生成的潜在特征中分辨出蒙面特征，是一个分类器，分类该图片是否蒙面，<span
+class="math inline">\(min(L(m))\)</span></p>
+<p>generator是要让潜在特征中的蒙面特征难以被discriminator发现。是一个特征提取器，提取出的特征要让discriminator看不出来是蒙面图像。<span
+class="math display">\[min(-L(m))\]</span> GRL层实现梯度反转</p>
+<p>据此，可以让蒙面和非蒙面特征分布重合。</p>
+<h3 id="loss-function">Loss function</h3>
+<p><span class="math inline">\(x\)</span>表示未蒙面图像，<span
+class="math display">\[\hat{x}\]</span> 表示对应的合成人脸图像，<span
+class="math display">\[x^r\]</span>表示真实人脸图像，<span
+class="math display">\[y\]</span>表示<span
+class="math display">\[X和\hat{X}\]</span>的身份标签，<span
+class="math display">\[y^r\]</span>
+表示真实人脸的蒙面标签（取值应该是0或1）。</p>
+<h4 id="attention-score-loss">attention score loss</h4>
+<p>注意力分数损失包含注意力分数，通过优化这个损失函数，能够让注意力分数在遮挡和未遮挡人脸上表现相同，从而减少类内差距。
+<span class="math display">\[
+L_a  = \frac{1}{B}\sum_{i=1}^B\parallel A(x_i) -A(\hat x_i)\parallel
+\]</span> 可以看到要利用输入图像对来计算损失函数</p>
+<p>这是优化Feature refinement layer的损失函数</p>
+<h4 id="mask-classificaton-loss">Mask classificaton loss</h4>
+<p>是用来优化GANN网络的损失函数 $$ L_m = L_m^s + 0.5L_m^r\</p>
+<p>L_m^s = -<em>{i=1}^Blog{}+log{}\ L_m^r =
+-</em>{i=1}<sup>{B}(y</sup>r_i)log{}+(1-y_i^r)log $$
+可以看到合成图片成对输入，真实图片单独输入</p>
+<p><span class="math inline">\(L_m^s\)</span>
+计算的是未遮挡人脸提取特征中未遮挡人脸特征占比，和合成遮挡人脸提取特征中遮挡人脸占比。</p>
+<p><span class="math inline">\(L_m^r\)</span>
+计算的是真实人脸提取特征中，如果是遮挡人脸，遮挡人脸特征占比，反之这是未遮挡人脸占比</p>
+<p>这个Loss和可以反映模型提取了多少正确特征，加上负号翻转。</p>
+<h4 id="identity-classification-loss">Identity classification loss</h4>
+<p>使用ArcFace loss</p>
+<p>也是一种softmax损失计算方式。</p>
+<h2 id="实验">实验</h2>
+<p><strong>数据集</strong>：</p>
+<ul>
+<li>CASIA-WebFace （training）</li>
+<li>MCASIA-WebFace （training）</li>
+<li>RMFD --spilt into two part
+<ul>
+<li>RMFD_DA (training)</li>
+<li>RMFD_FV (testing)</li>
+</ul></li>
+<li>MFR2 (testing)</li>
+<li>MFRFI (testing)</li>
+</ul>
+<h3 id="部署细节">部署细节</h3>
+<ol type="1">
+<li>backbone 是完整的ResNet-50</li>
+<li>Feature Refinement layer</li>
+</ol>
+
+<p>输出是512维的</p>
+<ol start="3" type="1">
+<li><p>domin adaption layer -- mask classification layer</p>
+
+<p>输出是一个2维向量，表示masked标签</p>
+<ol start="4" type="1">
+<li><p>identity classification layer</p>
+</li>
+</ol></li>
+</ol>
+<p>输出应该会接一个softmax计算ArcFace loss</p>
+<h3 id="结果">结果</h3>
+
+<p>RMFD上的验证结果87.84，相比于STL，retrained
+ArcFace来说提升不大，可能是由于RMFD中人脸图像质量低，MTCNN无法对人脸进行对其，而导致的图像质量差。</p>
+<p>在MFR2和MFTFI上有很高的正确率</p>
+<h3 id="分析添加的domain-adaptation和refinemen层的影响">分析添加的domain
+Adaptation和refinemen层的影响</h3>
+
+<p>可以看到只添加一层和原始层之间的对比关系</p>
+<p>在RMFD上还是只有少量提升</p>
+<h2 id="总结">总结</h2>
+<p>该论文在ArcFace的基础上添加了两层来帮助训练，训练的目的无非就是为了对齐遮蔽和未遮蔽人脸的提取特征，更准确的说应该是普通模型提取的特征向遮蔽人脸靠拢（不管是前部的激活区域，还是后部的特征分布）。让模型在提取参照人脸特征时学会“看到遮蔽时的特征“。</p>
+<p>这种方法可能会减少在识别普通人脸时的准确性，不过这应该不是问题，在具体应用中，应该可以应用准确率更高的检测是否遮挡的模型先判断时遮挡人脸还是未遮挡人脸，如果时遮挡人脸再用遮挡人脸识别模型处理即可。</p>
+<p>既然是为了让参照人脸提取特征向遮蔽人脸靠，那么我们为什么不直接对参照人脸进行预处理，而不修改模型，将待识别图像的遮蔽物合成到参照人脸上，再对参照人脸提取特征，是否会直接地使特征分布更加重合。进一步也可能会减少因不同遮蔽物引起的鲁棒性问题，因为参照人脸的遮蔽物由检测人脸遮蔽物而改变。</p>
+<p>但是，为所有参照人脸合成上遮蔽物而不修改模型的化，可能会引起参照人脸之间的类内差距，依旧可能需要一定的迁移学习。</p>
+<p>也即提高在MR-MP设置下的模型表现，本论文未进行这方面的实验。</p>
+<p>在G2D的实验中，不同模型在MUR-MP和MR-MP中的表现差异没有特定规律，大部分模型在UMR设置下表现更好，少部分模型在MR下表现更好，不知道能不能提升在合成后的MR设置下的性能。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/DeepLearning/" class="category-chain-item">DeepLearning</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" class="print-no-link">#人脸识别</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>领域适应在MFR中的应用</div>
+      <div>http://example.com/2024/09/30/领域适应在MFR中的应用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/30/BN%E5%B1%82/" title="BN层">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">BN层</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/30/G2D/" title="G2D">
+                        <span class="hidden-mobile">G2D</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
