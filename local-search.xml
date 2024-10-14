@@ -4,12 +4,112 @@
   
   
   <entry>
+    <title>操作系统进入保护模式</title>
+    <link href="/2024/10/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/"/>
+    <url>/2024/10/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<p>由于引导扇区的大小被局限为了512字节，这对于我们的是远远不够的，所以我们通过再建立一个文件，通过引导扇区把他加载到内存，再把控制权交给他，这样就没有512字节的限制了。引导扇区的代码只负责把Loader加载到内存中，再由Loader来加载内核进入保护模式。我们创建一个文件系统来管理loader和内核代码。我们下面的目的是把Loader放到文件系统中，以让引导扇区找到并加载他。</p><h2 id="fata12">FATA12</h2><p>FATA12的结构依次是，引导扇区，FAT表1，2 ， 根目录， 数据区。<br />引导扇区：是一个数据结构，BPB_,BS_开头的属性，例如BS_jmpBoot,共512字节，BPB_BytePerSec每扇区字节数，还有加载Loader的程序由jmp跳转FAT表：有两个，每个9个扇区，存储的文件在数据区中的簇号链表，FAT项的值表示下一个簇号FFF结束。根目录：存储的是文件的基本信息，如文件名，文件属性，文件开始簇号</p><h2 id="加载loader">加载Loader</h2><p>加载Loader需要读取软盘，运用int 13h中断来读取。将其读到es:bx中。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>中断与异常</title>
+    <link href="/2024/10/12/%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8/"/>
+    <url>/2024/10/12/%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8/</url>
+    
+    <content type="html"><![CDATA[<h2 id="introduce">introduce</h2><p>在实模式下直接使用BIOS中断，而在保护模式下不能使用，需要IDT表来代替。（InterruptDescriptor Table）<br />在IDT表中使用中断门和陷阱们，Gate的结构由选择子，属性和偏移组成，利用选择子和偏移来找到中断程序入口</p><h2 id="中断和异常机制">中断和异常机制</h2><p><strong>中断</strong>：程序程序执行时因为硬件而随机发生，通常用来处理外部时间，如外围设备请求，int n也可以产生中断。<br /><strong>异常</strong>: 处理器在执行时遇到错误，如零除，页错误等。 ###异常的三种类型 * Fault是一种可以被更正的异常，一旦被更正，程序可以继续运行。异常处理程序处理完后，返回执行产生fault的指令。* Trap也是一种允许程序继续执行的异常，但是返回地址是产生Trap之后的那条指令。 *Abort 发生异常后不允许程序继续执行，是用来报告严重错误的。</p><h3 id="外部中断和内部中断">外部中断和内部中断</h3><ul><li>内部中断 由int n 产生，类似于调用门的使用。</li><li>外部中断由硬件产生的中断，外部中断分为不可屏蔽中断NMI和可屏蔽中断INTR。不可屏蔽中断对应向量号2，可屏蔽中断于cpu是通过8259A连接的。8259A是用来对所有外部设备的一个代理，可以优先级处理中断和屏蔽打开中断。外部中断需要建立硬件和中断向量的联系。</li></ul><h4 id="a芯片">8259A芯片</h4><p>通过设置8259A将中断请求与中断向量对应起来。中断处理由两片8259A芯片级联，一共可以挂载15个不同的外部设置<br />芯片的设置必须按顺序向主从芯片中写入ICW1、ICW2、ICW3、ICW4，其分别设置 *ICW1 ： 单个还是级联，需不需要ICW4，中断向量字节数 * ICW2 ：芯片中断向量的起始值，如给主8259A发送020h，表示IRQ0-IRQ7对应向量号020h-027h* ICW3：主从芯片的连接端口，如给主芯片发送004h，代表主芯片的IR2对应从芯片。给从芯片发送002h代表连接主片的IR2</p><p>OCW用于屏蔽或打开中断，OCW1的格式很简单，对应位为0代表打开1代表关闭。OCW2用来发送EOI。EOI是中断处理结束后需要发送给8259A,以便继续接受中断的。</p><h3 id="建立idt">建立IDT</h3><ol type="1"><li>初始化时直接创建255个描述符即可。</li><li>将想加入的中断按找IDT表的偏移加入到IDT表中Gate的结构由选择子，属性和偏移组成，利用选择子和偏移来找到中断程序入口例如：在80h偏移处加入中断 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asm">.80h:   Gate  SelectorCode32, UserINtHandler, 0, DA_386IGate<br><br></code></pre></td></tr></table></figure>补充UserIntHander程序后，就可以通过int 80h进行调用。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>diffusion model</title>
+    <link href="/2024/10/10/diffusion-model/"/>
+    <url>/2024/10/10/diffusion-model/</url>
+    
+    <content type="html"><![CDATA[<h2 id="马尔可夫链">马尔可夫链</h2><p>stable Diffusion的前向过程和反向过程都是一个马尔可夫连，<br />马尔科夫链的思想：过去所有的信息都已经被保存到了现在的状态，基于现在就可以预测未来。马尔科夫链认为过去所有的信息都被保存在了现在的状态下了。比如这样一串数列 1 - 2 - 3 - 4 - 5 - 6，在马尔科夫链看来，6 的状态只与5 有关，与前面的其它过程无关。<br />既然某一时刻状态转移的概率只依赖于它的前一个状态，那么我们只要能求出系统中任意两个状态之间的转换概率，这个马尔科夫链的模型就定了</p><h3 id="马尔可夫矩阵的稳定性">马尔可夫矩阵的稳定性</h3><p>状态转移矩阵有一个非常重要的特性，经过一定有限次数序列的转换，最终一定可以得到一个稳定的概率分布，且与初始状态概率分布无关</p><h2 id="diffusion-models">DIffusion Models</h2><p>DDPM（Denoising Diffusion ProbabilisticModel）于2020年被提出，被称为扩散模型，是如今一种先进的图像生成模型。</p><h3 id="模型预测过程">模型预测过程</h3><p>DDPM模型从随机噪声开始，通过多步预测，<spanclass="math inline">\(X_i\)</span>都会在<spanclass="math inline">\(X_{i-1}\)</span>的基础上减少一些噪声，让图片更清晰。模型在每一步学习的不是从<spanclass="math inline">\(X_{i-1}\)</span>到<spanclass="math inline">\(X_i\)</span>的函数，而是从<spanclass="math inline">\(X_j{i-1}\)</span>到<spanclass="math inline">\(X_i\)</span>的差值（噪声），类似于resnet中的残差，从<spanclass="math inline">\(X_{i-1}\)</span>减去噪声得到<spanclass="math inline">\(X_i\)</span>。同时在每一步时还会加上一个步数编码。### 模型训练过程 从预测过程可知，模型要学习的groundtruth是相对于上一张图的噪声，所以训练样本也应该是噪声。为了得到这个训练噪声，我们可以通过ForwardProcess（Diffusion Process）来获得噪声。<em>forwardprocess</em>即对每一步的图像随机采样噪声，得到<code>噪声</code>和<code>加上噪声</code>的<spanclass="math inline">\(X_{i+1}\)</span>,所以grount truth就是在<em>forwardprocess</em>中得到的<code>噪声</code></p><h2 id="文生图framework">文生图Framework</h2><p>文生图的三个网络： 1. Text Encoder： 从输入的文字生成词向量 2.Generation Model ； 结合初始随机噪声和词向量representationfeture或者小图 3. Decoder 从representation feture 生成最终图像一般来说三个网络是分开训练的。在有的模型中<code>2</code>和<code>3</code>可以是一个模型。</p><h3 id="text-encoder-的作用">text encoder 的作用</h3><p>帮助图像更好的理解，提高模型的泛化能力。逻辑上，模型在训练集上见到的文字描述是有限的，如果遇到没见的描述可能会使模型理解能力变差，所以通过encoder可以将模型不能理解文字转化为可以理解的向量。</p><h3 id="指标">指标</h3><h4 id="fid">FID</h4><p>有一个训练好的分类模型。例如vgg图像识别模型。将真实图像和生成图像在vgg中产生的represetation算一个distance。类似GAN中的discriminator。</p><h4 id="clip-contrastive-language-image-pre-training">CLIP ContrastiveLanguage-image Pre-training</h4><p>这是一个模型，可以对text和image算distance。<br />如果这个text使在描述这个image则distance越低。</p><h3 id="decoder">Decoder</h3><ol type="1"><li>如果generatation产生的是一些小图，则直接通过图像处理产生大图小图训练集，扔给模型。decoder是一个图像超分模型。</li><li>如果generatation产生的是一些latentRepresentation。可以利用一个Autu-encoder自编码。 &gt;Q:这个decoder如何跟latent Representation对齐呢？<br />A： 1.先训练decoder，再锁住decoder再去训练generation。2.最后来一个端到端训练。<br />Q:对于1如何再训练generation使使它对齐呢。</li></ol><h3 id="vae-variational-auto-encoder-变分自编码器">VAE variational autoencoder 变分自编码器</h3><h3 id="算法-training">算法 training</h3><p><span class="math inline">\(X_0\)</span>：clear image<br />Uniform : 均匀分布<br /><span class="math inline">\(\epsilon\)</span> ：noise<br /><span class="math inline">\(\epsilon_\theta\)</span>: Noisepredictor<br /><code>2</code>： sample one clear image<br /><code>3</code>: sample a number between 1, T<br /><code>4</code>: sample a noise from Normal distribution<br /><code>5</code>: 圆括号内对<spanclass="math inline">\(x_0\)</span>和<spanclass="math inline">\(\epsilon\)</span>做wighted sum，其中<spanclass="math inline">\(\bar{\alpha_t}\)</span>是一组事先选择的权重，从大到小。t是<code>2</code>中随机选择的。sample到的t越大,<spanclass="math inline">\(\alpha\)</span>越小，原图占的比例越小。加起来就是noiseimage.noise image 和 t一起作为predictor的输入</p><blockquote><p>想象中reverse process过程是利用predictor一步步减少噪音，即每一步把噪声很多的图减少到噪声不那么多的图，但是再实际算法中DDPN直接在clearimage中混入噪音，只不过噪音的大小由t来决定，然后学习噪音。没有中间少量噪音的中间图。这是经过数学推导得到的。</p></blockquote><h3 id="算法-sampling">算法 Sampling</h3><p><code>1</code>: sample a noise image from normal distribution<spanclass="math inline">\(X_T\)</span><br /><code>2</code>: loop T times<br /><code>3</code>: sample a noise <spanclass="math inline">\(z\)</span><br /><code>4</code>: 括号里的是<span class="math inline">\(X_t -predict_noise\)</span>，系数是公式推导出的，<spanclass="math inline">\(/alpha\)</span>和training算法中类似。加z是提升泛化，不加似乎出不来。</p><h3 id="公式推导">公式推导</h3><p>看了一遍没太看懂，过段时间再看吧<br />看懂了，但不想写了，扔个链接 <ahref="https://zhuanlan.zhihu.com/p/650394311">深入浅出扩散模型(DiffusionModel)系列：基石DDPM（人人都能看懂的数学原理篇）</a></p><h3 id="一个mnist的demo">一个mnist的demo</h3><p>https://github.com/guchengzhong/latent_diffusion_model_mnist.git</p><h3 id="unet-框架">Unet 框架</h3><p>参考 1. https://zhuanlan.zhihu.com/p/655568910</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>deeplearning</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>diffusion</tag>
+      
+      <tag>cv</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Latex中文字体</title>
+    <link href="/2024/10/01/Latex%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/"/>
+    <url>/2024/10/01/Latex%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/</url>
+    
+    <content type="html"><![CDATA[<p>今天在使用老师给的latex模板时，一直因字体原因报错。网上查了才知道，不同系统下使用的字体时不同的，模板的的字体指定的时Windows下的字体，而我的texlive下载Ubuntu中，所以会缺少很多windows自带的字体，于是只能删掉linux中的tex，再windows中重新下一遍。可怜我windows中所剩不多的空间啊。/::&gt;_&lt;::/</p><p>例如出现错误 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">Package fontspec Error: The font &quot;SimSun&quot; cannot be found<br></code></pre></td></tr></table></figure>在windows环境下就不会有这个问题，在linux下就需要自定义安装。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Latex</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Latex</tag>
+      
+      <tag>字体</tag>
+      
+      <tag>bug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>页式存储</title>
     <link href="/2024/09/30/%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8/"/>
     <url>/2024/09/30/%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h2 id="地址转换流程">地址转换流程</h2><p>逻辑地址----分段机制---&gt;线性地址----分页机制---&gt;物理地址</p><p>实现分段机制，可以提供保护，而实现分页机制，可以实现虚拟内存，使内存管理变得灵活。</p><h2 id="页表">页表</h2><p>对于一个两级页表来说，页表分为页目录和页表cr3：寄存器，指向页目录开头PDE：页目录表的表项，指向某一个页表的开头<br />PTE：页表的表项，指向某一个物理页在启动页表前需要将页表内容初始化。<br />分页机制是否生效取决于cro的最高位PG位，所以开启页表只需要将cr3指向页目录表，设置PG位=1.</p><h2 id="启动页表">启动页表</h2><h3 id="初始化页表">1. 初始化页表</h3><p>在启动页表前需要将页表内容初始化。在页目录中填入页表的地址，页表中填入物理页的地址。在具体的初始化方法中，操作系统更具硬件内存的大小来设置页表的个数。使用int 15h获取内存信息 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asm">;需要设置的寄存器代表的意义<br>eax = 0xe820 ;工作号<br>ebx = 0x0 ;后续值<br>es:di ;指向地址范围描述符结构<br>ecx ;地址范围描述符的大小<br>edx = 0x534d4150 ;签名<br>;返回结果<br>CF ; 返回0代表没有错误<br>eax ; 0x534d4150<br>es:di ; 地址范围结构描述符，与输入相同<br>ecx ; 地址范围描述符的大小<br>ebx ; 下一个地址范围描述符需要的后续值<br></code></pre></td></tr></table></figure> 地址范围描述符 <imgsrc="页式存储\image.png" alt="alt text" /></p><h3 id="启动分页">2.启动分页</h3><p>分页机制是否生效取决于cro的最高位PG位，所以开启页表需要将cr3指向页目录表，设置PG位=1.不同的程序可以通过不同的cr3来拥有不同的页表，相同的地址。</p><h3 id="pte属性位">pte属性位</h3><ul><li>前20位：表示物理页的地址</li><li>P位：表示页是否在内存中，1表示在内存中，0表示不在内存中，需要从硬盘中读取。</li><li>R/W位：表示页是否可写，1表示可写，0表示只读</li><li>U/S位：表示页是否用户态可访问，1表示用户态可访问，0表示只有内核态可访问</li><li>A位：表示页是否被访问过，1表示被访问过，0表示没有被访问过</li><li>D位：表示页是否被修改过，1表示被修改过，0表示没有被修改过</li><li>G位：表示页是否被全局页表引用，1表示被全局页表引用，0表示没有被全局页表引用</li><li>PAT位：表示页是否支持高速缓存，1表示支持，0表示不支持</li><li>PS位：表示页是否是大页，1表示是大页，0表示不是大页</li><li>NX位：表示页是否可执行，1表示不可执行，0表示可执行</li></ul>]]></content>
     
+    
+    <categories>
+      
+      <category>OS</category>
+      
+    </categories>
     
     
   </entry>
@@ -541,7 +641,7 @@
     <link href="/2024/09/29/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/"/>
     <url>/2024/09/29/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/</url>
     
-    <content type="html"><![CDATA[<h1 id="保护模式">保护模式</h1><p>cpu有两种工作模式：实模式和保护模式。当我们打开cpu的时候，cpu是在实模式下工作的，经过某种机制，才进入到保护模式。在保护模式下，cpu有更好的寻址能力，为32位操作系统提供服务。## 从16位到32位操作系统在16位操作系统下，寻址是依靠段加偏移的，从而达到1MB的寻址能力，段时地址的一部分，由cs，ds等寄存器保存。<br />但是在32位操作系统下，一个寄存器就有4GB的寻址能力，但是段还是被保留了下来，不过段值寄存器表示的不再是段值，而是一个索引，这个索引只想一个数据结构表的表项。这个表就是GDT（globaldescriptor table）全局描述符表。 ## GDT<strong>GDT</strong>：全局描述符<strong>表</strong>，存放段描述符，每个段描述符占8字节，共8192个段描述符，每个段描述符对应一个段，段的大小由段描述符的基地址和限长决定。</p><p><strong>Descriptor</strong>：描述符，是GDT中的一个表项。</p><p><strong>GDTPtr</strong>：GDT指针，是一个48位的寄存器，高16位是GDT的限长，低32位是GDT的基地址。<em>既然如此，我们如何将段寄存器和描述符对应起来呢</em></p><p>答案是通过选择子（selector）</p><p><strong>Selector</strong>：选择子，是一个16位的寄存器，高13位是索引，低3位是RPL（请求特权级），RPL是用来判断当前进程的权限，0是最高权限，3是最低权限。索引是在GDT中的一个偏移。如<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asm">SelectorVideo equ LABEL_VIDEO - LABEL_GDT<br></code></pre></td></tr></table></figure></p><h2 id="从实模式到保护模式">从实模式到保护模式</h2><h3 id="设置gdt">1. 设置GDT</h3><p>将需要的物理地址赋值给到段描述符中。|初始化descriptor<br />将GDT物理地址赋值给GDtPtr数据结构， 初始化GDTPtr然后将GdtPtr中的数据加载到gdtr寄存器中。| 初始化gdtr</p><h3 id="关闭中断">2. 关闭中断</h3><p>因为保护模式下中断处理机制是不同的所以要关中断。</p><h3 id="打开a20地址线">3. 打开A20地址线</h3><p>20位地址线只能访问1MB的内存，打开A20地址线可以访问4MB的内存。这是为了在80286（可以访问4MB），下兼容8086（访问1MB）。A20默认是关闭的，打开后，就可以访问4MB的内存。开关是通过8042键盘控制器来控制的，</p><p>可以通过操作操作端口92h来实现。</p><h3 id="设置cr0寄存器">4. 设置cr0寄存器</h3><p>cro寄存器的第0位是PE位，此位0表示实模式，1表示保护模式。设置为1，进入保护模式.</p><p>在设置完后cpu就进入保护模式了，但是cs的值仍然是实模式下的值，需要将代码段的选择子装入cs。</p><h3 id="设置cs">5. 设置cs</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asm">jmp dword selector_code:0<br></code></pre></td></tr></table></figure><p>会把 SelectorCode32 装入 cs,并跳转到 Code32Selector:0 处</p><h2 id="从保护模式到实模式">从保护模式到实模式</h2><h3 id="将normal-selector装入dsesfsgsss">1. 将normalselector装入ds，es，fs，gs，ss</h3><p>以使对应段描述符高速缓冲寄存器中含有合适的段界限和属性 ### 2.设置cr0寄存器为0 ### 3. 跳转回实模式 jmp cs_real_mode:LABEL_REAL_ENTRY### 4.重新设置段寄存器的值，关闭A20地址线并打开中断</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="保护模式">保护模式</h1><p>cpu有两种工作模式：实模式和保护模式。当我们打开cpu的时候，cpu是在实模式下工作的，经过某种机制，才进入到保护模式。在保护模式下，cpu有更好的寻址能力，为32位操作系统提供服务。</p><h2 id="从16位到32位操作系统">从16位到32位操作系统</h2><p>在16位操作系统下，寻址是依靠段加偏移的，从而达到1MB的寻址能力，段时地址的一部分，由cs，ds等寄存器保存。<br />但是在32位操作系统下，一个寄存器就有4GB的寻址能力，但是段还是被保留了下来，不过段值寄存器表示的不再是段值，而是一个索引，这个索引只想一个数据结构表的表项。这个表就是GDT（globaldescriptor table）全局描述符表。</p><h2 id="gdt">GDT</h2><p><strong>GDT</strong>：全局描述符<strong>表</strong>，存放段描述符，每个段描述符占8字节，共8192个段描述符，每个段描述符对应一个段，段的大小由段描述符的基地址和限长决定。</p><p><strong>Descriptor</strong>：描述符，是GDT中的一个表项。</p><p><strong>GDTPtr</strong>：GDT指针，是一个48位的寄存器，高16位是GDT的限长，低32位是GDT的基地址。<em>既然如此，我们如何将段寄存器和描述符对应起来呢</em></p><p>答案是通过选择子（selector）</p><p><strong>Selector</strong>：选择子，是一个16位的寄存器，高13位是索引，低3位是RPL（请求特权级），RPL是用来判断当前进程的权限，0是最高权限，3是最低权限。索引是在GDT中的一个偏移。如<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asm">SelectorVideo equ LABEL_VIDEO - LABEL_GDT<br></code></pre></td></tr></table></figure></p><h2 id="从实模式到保护模式">从实模式到保护模式</h2><h3 id="设置gdt">1. 设置GDT</h3><p>将需要的物理地址赋值给到段描述符中。|初始化descriptor<br />将GDT物理地址赋值给GDtPtr数据结构， 初始化GDTPtr然后将GdtPtr中的数据加载到gdtr寄存器中。| 初始化gdtr</p><h3 id="关闭中断">2. 关闭中断</h3><p>因为保护模式下中断处理机制是不同的所以要关中断。</p><h3 id="打开a20地址线">3. 打开A20地址线</h3><p>20位地址线只能访问1MB的内存，打开A20地址线可以访问4MB的内存。这是为了在80286（可以访问4MB），下兼容8086（访问1MB）。A20默认是关闭的，打开后，就可以访问4MB的内存。开关是通过8042键盘控制器来控制的，</p><p>可以通过操作操作端口92h来实现。</p><h3 id="设置cr0寄存器">4. 设置cr0寄存器</h3><p>cro寄存器的第0位是PE位，此位0表示实模式，1表示保护模式。设置为1，进入保护模式.</p><p>在设置完后cpu就进入保护模式了，但是cs的值仍然是实模式下的值，需要将代码段的选择子装入cs。</p><h3 id="设置cs">5. 设置cs</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asm">jmp dword selector_code:0<br></code></pre></td></tr></table></figure><p>会把 SelectorCode32 装入 cs,并跳转到 Code32Selector:0 处</p><h2 id="从保护模式到实模式">从保护模式到实模式</h2><h3 id="将normal-selector装入dsesfsgsss">1. 将normalselector装入ds，es，fs，gs，ss</h3><p>以使对应段描述符高速缓冲寄存器中含有合适的段界限和属性 ### 2.设置cr0寄存器为0</p><h3 id="跳转回实模式">3. 跳转回实模式</h3><p>jmp cs_real_mode:LABEL_REAL_ENTRY</p><h3id="重新设置段寄存器的值关闭a20地址线并打开中断">4.重新设置段寄存器的值，关闭A20地址线并打开中断</h3>]]></content>
     
     
     <categories>

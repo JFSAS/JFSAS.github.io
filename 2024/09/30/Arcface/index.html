@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
 
   <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="icon" href="/img/%E5%A4%B4%E5%83%8F.jpg">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -23,7 +23,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Arcface">
 <meta property="og:url" content="http://example.com/2024/09/30/Arcface/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="用DCNN来学习人脸表示，把人脸图片映射到特征空间，使得类内距离小类间距离大 一般两条主线方法，代表分别为softmax loss和triplet loss,但是都有一些缺陷  softmax classifier 通过多分类问题来训练模型 缺点如下：   线性变换矩阵的大小W∈Rd×n随着身份数的增加而线性增加n; 学习到的特征对于封闭集的分类问题是可分离的的分类问题是可">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-29T17:14:10.000Z">
@@ -34,7 +34,7 @@
   
   
   
-  <title>Arcface - Hexo</title>
+  <title>Arcface - JFSAS</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -274,6 +274,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <h1 id="seo-header">Arcface</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    本文最后更新于 2024-09-30T01:16:55+08:00
+                  
+                  
+
+                
+              </p>
             
             
               <div class="markdown-body">
@@ -578,6 +588,33 @@ softmax过程中linear层的变换矩阵的每一行都可以被视为一个类�
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   

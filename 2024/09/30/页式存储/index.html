@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
 
   <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="icon" href="/img/%E5%A4%B4%E5%83%8F.jpg">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -19,19 +19,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="地址转换流程 逻辑地址----分段机制---&gt;线性地址----分页机制---&gt;物理地址 实现分段机制，可以提供保护，而实现分页机制，可以实现虚拟内存，使内存管理变得灵活。 页表 对于一个两级页表来说，页表分为页目录和页表 cr3：寄存器，指向页目录开头 PDE：页目录表的表项，指向某一个页表的开头 PTE：页表的表项，指向某一个物理页 在启动页表前需要将页表内容初始化。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="页式存储">
 <meta property="og:url" content="http://example.com/2024/09/30/%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="JFSAS">
+<meta property="og:description" content="地址转换流程 逻辑地址----分段机制---&gt;线性地址----分页机制---&gt;物理地址 实现分段机制，可以提供保护，而实现分页机制，可以实现虚拟内存，使内存管理变得灵活。 页表 对于一个两级页表来说，页表分为页目录和页表 cr3：寄存器，指向页目录开头 PDE：页目录表的表项，指向某一个页表的开头 PTE：页表的表项，指向某一个物理页 在启动页表前需要将页表内容初始化。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-30T01:39:14.000Z">
-<meta property="article:modified_time" content="2024-09-30T01:39:14.256Z">
+<meta property="article:modified_time" content="2024-10-10T06:37:40.126Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>页式存储 - Hexo</title>
+  <title>页式存储 - JFSAS</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -222,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          713 字
         
       </span>
     
@@ -233,7 +235,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -272,10 +274,50 @@
           <article class="post-content mx-auto">
             <h1 id="seo-header">页式存储</h1>
             
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    本文最后更新于 2024-10-10T14:37:40+08:00
+                  
+                  
+
+                
+              </p>
+            
             
               <div class="markdown-body">
                 
-                
+                <h2 id="地址转换流程">地址转换流程</h2>
+<p>逻辑地址----分段机制---&gt;线性地址----分页机制---&gt;物理地址</p>
+<p>实现分段机制，可以提供保护，而实现分页机制，可以实现虚拟内存，使内存管理变得灵活。</p>
+<h2 id="页表">页表</h2>
+<p>对于一个两级页表来说，页表分为页目录和页表
+cr3：寄存器，指向页目录开头
+PDE：页目录表的表项，指向某一个页表的开头<br />
+PTE：页表的表项，指向某一个物理页
+在启动页表前需要将页表内容初始化。<br />
+分页机制是否生效取决于cro的最高位PG位，所以开启页表只需要将cr3指向页目录表，设置PG位=1.</p>
+<h2 id="启动页表">启动页表</h2>
+<h3 id="初始化页表">1. 初始化页表</h3>
+<p>在启动页表前需要将页表内容初始化。在页目录中填入页表的地址，页表中填入物理页的地址。在具体的初始化方法中，操作系统更具硬件内存的大小来设置页表的个数。
+使用int 15h获取内存信息 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs asm">;需要设置的寄存器代表的意义<br>eax = 0xe820 ;工作号<br>ebx = 0x0 ;后续值<br>es:di ;指向地址范围描述符结构<br>ecx ;地址范围描述符的大小<br>edx = 0x534d4150 ;签名<br>;返回结果<br>CF ; 返回0代表没有错误<br>eax ; 0x534d4150<br>es:di ; 地址范围结构描述符，与输入相同<br>ecx ; 地址范围描述符的大小<br>ebx ; 下一个地址范围描述符需要的后续值<br></code></pre></td></tr></table></figure> 地址范围描述符 <img
+src="页式存储\image.png" srcset="/img/loading.gif" lazyload alt="alt text" /></p>
+<h3 id="启动分页">2.启动分页</h3>
+<p>分页机制是否生效取决于cro的最高位PG位，所以开启页表需要将cr3指向页目录表，设置PG位=1.
+不同的程序可以通过不同的cr3来拥有不同的页表，相同的地址。</p>
+<h3 id="pte属性位">pte属性位</h3>
+<ul>
+<li>前20位：表示物理页的地址</li>
+<li>P位：表示页是否在内存中，1表示在内存中，0表示不在内存中，需要从硬盘中读取。</li>
+<li>R/W位：表示页是否可写，1表示可写，0表示只读</li>
+<li>U/S位：表示页是否用户态可访问，1表示用户态可访问，0表示只有内核态可访问</li>
+<li>A位：表示页是否被访问过，1表示被访问过，0表示没有被访问过</li>
+<li>D位：表示页是否被修改过，1表示被修改过，0表示没有被修改过</li>
+<li>G位：表示页是否被全局页表引用，1表示被全局页表引用，0表示没有被全局页表引用</li>
+<li>PAT位：表示页是否支持高速缓存，1表示支持，0表示不支持</li>
+<li>PS位：表示页是否是大页，1表示是大页，0表示不是大页</li>
+<li>NX位：表示页是否可执行，1表示不可执行，0表示可执行</li>
+</ul>
 
                 
               </div>
@@ -283,6 +325,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OS/" class="category-chain-item">OS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
 </div>
@@ -337,6 +400,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/10/01/Latex%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/" title="Latex中文字体">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Latex中文字体</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -504,6 +573,33 @@
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   

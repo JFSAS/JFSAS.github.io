@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
 
   <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="icon" href="/img/%E5%A4%B4%E5%83%8F.jpg">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -23,7 +23,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Domain_Adaptation">
 <meta property="og:url" content="http://example.com/2024/09/30/Domain-Adaptation/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="Domian Adaptation 领域适应（Domian Adaptation）是迁移学习的一个子方法，但有不同于迁移学习。 域适应是使用模型从足够训练集的相关域中训练到的知识，来提高模型再不足训练数据目标域上性能的技术。 领域适应是为了解决训练模型在验证或者实际数据集上表现不佳的问题 例如：1.训练数据集是手机拍摄的图片，而验证数据集是单反拍摄的图片，可能就会由于两者的差距而导致模型">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-29T17:29:10.000Z">
@@ -34,7 +34,7 @@
   
   
   
-  <title>Domain_Adaptation - Hexo</title>
+  <title>Domain_Adaptation - JFSAS</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -274,6 +274,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <h1 id="seo-header">Domain_Adaptation</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    本文最后更新于 2024-09-30T01:29:39+08:00
+                  
+                  
+
+                
+              </p>
             
             
               <div class="markdown-body">
@@ -565,6 +575,33 @@ face recognition using domain adaptation</a></p>
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   

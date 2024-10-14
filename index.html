@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
 
   <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="icon" href="/img/%E5%A4%B4%E5%83%8F.jpg">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -20,16 +20,16 @@
   <meta name="keywords" content="">
   
     <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="JFSAS">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="JFSAS">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Hexo</title>
+  <title>JFSAS</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -229,6 +229,242 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/10/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/" target="_self">
+          操作系统进入保护模式
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/10/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/" target="_self">
+        <div>
+          由于引导扇区的大小被局限为了512字节，这对于我们的是远远不够的，所以我们通过再建立一个文件，通过引导扇区把他加载到内存，再把控制权交给他，这样就没有512字节的限制了。引导扇区的代码只负责把Loader加载到内存中，再由Loader来加载内核进入保护模式。我们创建一个文件系统来管理loader和内核代码。我们下面的目的是把Loader放到文件系统中，以让引导扇区找到并加载他。 FATA12
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-10-14 09:35" pubdate>
+              2024-10-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OS/" class="category-chain-item">OS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/10/12/%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8/" target="_self">
+          中断与异常
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/10/12/%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8/" target="_self">
+        <div>
+          introduce 在实模式下直接使用BIOS中断，而在保护模式下不能使用，需要IDT表来代替。（Interrupt Descriptor Table） 在IDT表中使用中断门和陷阱们，Gate的结构由选择子，属性和偏移组成，利用选择子和偏移来找到中断程序入口 中断和异常机制 中断：程序程序执行时因为硬件而随机发生，通常用来处理外部时间，如外围设备请求， int n也可以产生中断。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-10-12 09:41" pubdate>
+              2024-10-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OS/" class="category-chain-item">OS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/10/10/diffusion-model/" target="_self">
+          diffusion model
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/10/10/diffusion-model/" target="_self">
+        <div>
+          马尔可夫链 stable Diffusion的前向过程和反向过程都是一个马尔可夫连， 马尔科夫链的思想：过去所有的信息都已经被保存到了现在的状态，基于现在就可以预测未来。 马尔科夫链认为过去所有的信息都被保存在了现在的状态下了 。比如这样一串数列 1 - 2 - 3 - 4 - 5 - 6，在马尔科夫链看来，6 的状态只与 5 有关，与前面的其它过程无关。 既然某一时刻状态转移的概率只
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-10-10 18:52" pubdate>
+              2024-10-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/deeplearning/" class="category-chain-item">deeplearning</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/diffusion/">#diffusion</a>
+            
+              <a href="/tags/cv/">#cv</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/10/01/Latex%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/" target="_self">
+          Latex中文字体
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/10/01/Latex%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/" target="_self">
+        <div>
+          今天在使用老师给的latex模板时，一直因字体原因报错。网上查了才知道，不同系统下使用的字体时不同的，模板的的字体指定的时Windows下的字体，而我的texlive下载Ubuntu中，所以会缺少很多windows自带的字体，于是只能删掉linux中的tex，再windows中重新下一遍。可怜我windows中所剩不多的空间啊。/::&gt;_&lt;::/ 例如出现错误 1Package fo
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-10-01 01:15" pubdate>
+              2024-10-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Latex/" class="category-chain-item">Latex</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Latex/">#Latex</a>
+            
+              <a href="/tags/%E5%AD%97%E4%BD%93/">#字体</a>
+            
+              <a href="/tags/bug/">#bug</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/09/30/%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8/" target="_self">
           页式存储
         </a>
@@ -237,7 +473,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/09/30/%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8/" target="_self">
         <div>
-          
+          地址转换流程 逻辑地址----分段机制---&gt;线性地址----分页机制---&gt;物理地址 实现分段机制，可以提供保护，而实现分页机制，可以实现虚拟内存，使内存管理变得灵活。 页表 对于一个两级页表来说，页表分为页目录和页表 cr3：寄存器，指向页目录开头 PDE：页目录表的表项，指向某一个页表的开头 PTE：页表的表项，指向某一个物理页 在启动页表前需要将页表内容初始化。
         </div>
       </a>
 
@@ -250,6 +486,27 @@
             </time>
           </div>
         
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/OS/" class="category-chain-item">OS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
         
         
       </div>
@@ -519,257 +776,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/09/30/ROC%E6%9B%B2%E7%BA%BF/" target="_self">
-          ROC曲线
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/30/ROC%E6%9B%B2%E7%BA%BF/" target="_self">
-        <div>
-          ROC曲线 0x01 receiver operating characteristic (ROC) curve. T/F（识别结果正确或错误）P/N(模型识别结果)   True Positive Rate(TPR) （aka，recall 真阳率） 用于衡量对positive目标的识别准确率的，如果将所有positive目标（理想）/所有目标（极限） 识别为positive，则
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-30 01:28" pubdate>
-              2024-09-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/DeepLearning/" class="category-chain-item">DeepLearning</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/martix/">#martix</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/09/30/%E5%85%83%E5%AD%A6%E4%B9%A0/" target="_self">
-          元学习
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/30/%E5%85%83%E5%AD%A6%E4%B9%A0/" target="_self">
-        <div>
-          一文入门元学习（Meta-Learning）（附代码） - 知乎 (zhihu.com) 元学习是一种学习超参数的学习方法，区别于一般的机器学习是利用人为设置的超参数更新参数。让模型学会自己初始化参数。 元学习关注的是该超参数在任意任务下训练后表现的潜力大小。 MALML（Model-Agnostic Meta-Learning） MAML 算法流程：   img
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-30 01:27" pubdate>
-              2024-09-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/DeepLearning/" class="category-chain-item">DeepLearning</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/">#元学习</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/09/30/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%B8%AD%E7%9A%84loss%E5%87%BD%E6%95%B0/" target="_self">
-          人脸识别中的loss函数
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/30/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%B8%AD%E7%9A%84loss%E5%87%BD%E6%95%B0/" target="_self">
-        <div>
-          人脸识别中的loss函数 Ox00 softmax + cross Deepface --- 论文 在论文最后一个全连接层的输出到一个k-th的softmax，K是类数。softmax会将输入转化为和为1的概率分布。 \[ p_k =   \]
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-30 01:26" pubdate>
-              2024-09-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/DeepLearning/" class="category-chain-item">DeepLearning</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">#人脸识别</a>
-            
-              <a href="/tags/loss/">#loss</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/09/30/BN%E5%B1%82/" target="_self">
-          BN层
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/30/BN%E5%B1%82/" target="_self">
-        <div>
-          Batch Normalization（BN） 见Batch Normalization（BN）超详细解析_batchnorm在预测阶段需要计算吗-CSDN博客
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-30 01:25" pubdate>
-              2024-09-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/DeepLearning/" class="category-chain-item">DeepLearning</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">#深度学习基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

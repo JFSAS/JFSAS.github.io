@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
 
   <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="icon" href="/img/%E5%A4%B4%E5%83%8F.jpg">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -23,7 +23,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决linux网络接口消失的问题">
 <meta property="og:url" content="http://example.com/2024/09/29/%E8%A7%A3%E5%86%B3linux%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E6%B6%88%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="0x00 恶心的网络问题--可能错怪VM了 在vmware虚拟机上的linux系统，有时明明用着一直有网，可突然有一次开机就没网络，之后无论怎么重启都无法使网络连接上。 之前我一直以为是vmware的问题，一直在vmware上折腾，来回设置桥接，NAT，但是无果。最后只能通过重装虚拟机或者整个vmware来解决。 可能这是一个很简单的问题，刚好这学期加强了一下计算机网络的知识才突然意识到">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-29T14:58:49.000Z">
@@ -35,7 +35,7 @@
   
   
   
-  <title>解决linux网络接口消失的问题 - Hexo</title>
+  <title>解决linux网络接口消失的问题 - JFSAS</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -275,6 +275,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <h1 id="seo-header">解决linux网络接口消失的问题</h1>
+            
+              <p id="updated-time" class="note note-info" style="display: none">
+                
+                  
+                    本文最后更新于 2024-09-30T00:14:43+08:00
+                  
+                  
+
+                
+              </p>
             
             
               <div class="markdown-body">
@@ -537,6 +547,33 @@
   
 
 
+
+
+  
+<script>
+  var relativeDate = function() {
+    var updatedTime = document.getElementById('updated-time');
+    if (updatedTime) {
+      var text = updatedTime.textContent;
+      var reg = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})/;
+      var matchs = text.match(reg);
+      if (matchs) {
+        var relativeTime = moment(matchs[0]).fromNow();
+        updatedTime.textContent = text.replace(reg, relativeTime);
+      }
+      updatedTime.style.display = '';
+    }
+  };
+  Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/moment.min.js', function() {
+    if (!'zh-cn'.startsWith('en')) {
+      Fluid.utils.createScript('https://lib.baomitu.com/moment.js/2.29.4/locale/zh-cn.min.js', function() {
+        relativeDate();
+      });
+    } else {
+      relativeDate();
+    }
+  });
+</script>
 
 
   
