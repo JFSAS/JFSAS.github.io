@@ -16,19 +16,19 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="JFSAS">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数据链路层 网络层是将包从一个网络通过路由发送到另一个网络中，数据链路层则是如何在同一个局域网中从一条主机发送到另一台主机，但不经过路由器转发。 数据链路层的网络分为： 1. 点对点 2. 广播 ## 1 透明传输 数据链路层会对数据加上帧开始符号和帧结束符，来对帧进行区分。为了解决数据中出现的帧开始符号和帧结束符号，数据链路层会对数据中出现的帧开始符号和帧结束符号进行转义。即字节填充方法，">
+    <meta name="description" content="数据链路层 网络层是将包从一个网络通过路由发送到另一个网络中，数据链路层则是如何在同一个局域网中从一条主机发送到另一台主机，但不经过路由器转发。 数据链路层的网络分为： 1. 点对点 2. 广播 1 透明传输 数据链路层会对数据加上帧开始符号和帧结束符，来对帧进行区分。为了解决数据中出现的帧开始符号和帧结束符号，数据链路层会对数据中出现的帧开始符号和帧结束符号进行转义。即字节填充方法，传输">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据链路层">
-<meta property="og:url" content="http://example.com/2024/09/30/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/index.html">
+<meta property="og:url" content="https://jfsas.github.io/2024/09/30/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/index.html">
 <meta property="og:site_name" content="JFSAS">
-<meta property="og:description" content="数据链路层 网络层是将包从一个网络通过路由发送到另一个网络中，数据链路层则是如何在同一个局域网中从一条主机发送到另一台主机，但不经过路由器转发。 数据链路层的网络分为： 1. 点对点 2. 广播 ## 1 透明传输 数据链路层会对数据加上帧开始符号和帧结束符，来对帧进行区分。为了解决数据中出现的帧开始符号和帧结束符号，数据链路层会对数据中出现的帧开始符号和帧结束符号进行转义。即字节填充方法，">
+<meta property="og:description" content="数据链路层 网络层是将包从一个网络通过路由发送到另一个网络中，数据链路层则是如何在同一个局域网中从一条主机发送到另一台主机，但不经过路由器转发。 数据链路层的网络分为： 1. 点对点 2. 广播 1 透明传输 数据链路层会对数据加上帧开始符号和帧结束符，来对帧进行区分。为了解决数据中出现的帧开始符号和帧结束符号，数据链路层会对数据中出现的帧开始符号和帧结束符号进行转义。即字节填充方法，传输">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-29T17:31:33.000Z">
-<meta property="article:modified_time" content="2024-09-29T17:32:04.495Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-10-20T10:23:04.321Z">
+<meta property="article:author" content="JFSAS">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -71,7 +71,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"jfsas.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -277,7 +277,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-09-30T01:32:04+08:00
+                    本文最后更新于 2024-10-20T18:23:04+08:00
                   
                   
 
@@ -289,37 +289,46 @@
                 
                 <h1 id="数据链路层">数据链路层</h1>
 <p>网络层是将包从一个网络通过路由发送到另一个网络中，数据链路层则是如何在同一个局域网中从一条主机发送到另一台主机，但不经过路由器转发。<br />
-数据链路层的网络分为： 1. 点对点 2. 广播 ## 1 透明传输
-数据链路层会对数据加上帧开始符号和帧结束符，来对帧进行区分。为了解决数据中出现的帧开始符号和帧结束符号，数据链路层会对数据中出现的帧开始符号和帧结束符号进行转义。即字节填充方法，传输数据时对数据中的特殊字符添加转义符号，接收端接收到数据后将转义字符去掉。
+数据链路层的网络分为： 1. 点对点 2. 广播</p>
+<h2 id="透明传输">1 透明传输</h2>
+<p>数据链路层会对数据加上帧开始符号和帧结束符，来对帧进行区分。为了解决数据中出现的帧开始符号和帧结束符号，数据链路层会对数据中出现的帧开始符号和帧结束符号进行转义。即字节填充方法，传输数据时对数据中的特殊字符添加转义符号，接收端接收到数据后将转义字符去掉。
 ## 2.CRC校验
 能检测传输过去的帧是否由bit位错误，在当前讨论的数据链路层中，不要求可靠数据传输，可靠数据传输由上层协议保证。这是由于现在通讯线路质量好，不使用确认和重传可以提高传输效率</p>
 <h2 id="点对点协议ppp">3. 点对点协议PPP</h2>
 <p>数据链路层<strong>简单</strong>的思想：
-接收方每接受到一个帧，就进行CRC校验，如果校验正确，就收下这个帧，反之丢弃，其他什么都不做。
-### 3.1 PPP协议组成 1. PPP协议对IP数据报进行封装，信息最大长度位MTU 2.
-建立链路连接的<strong>链路控制协议LCP</strong> 3.
-一套<strong>网络控制协议NCP</strong>，其中一个协议支持不同的网络层协议，如IP，IPX，AppleTalk等
-#### 3.1.1 帧格式 首部4个字段 * 标志字段：0x7E 帧开始或结束 *
-地址字段：0xFF 无地址 * 控制字段：0x03
-无控制（最初是留给以后用的，但到现在也没用） * 协议字段：如 0x0021
-IP协议 0x0023 ARP协议 尾部2个字段 * CRC校验：FCS * 帧结束符：0x7E</p>
+接收方每接受到一个帧，就进行CRC校验，如果校验正确，就收下这个帧，反之丢弃，其他什么都不做。</p>
+<h3 id="ppp协议组成">3.1 PPP协议组成</h3>
+<ol type="1">
+<li>PPP协议对IP数据报进行封装，信息最大长度位MTU</li>
+<li>建立链路连接的<strong>链路控制协议LCP</strong></li>
+<li>一套<strong>网络控制协议NCP</strong>，其中一个协议支持不同的网络层协议，如IP，IPX，AppleTalk等</li>
+</ol>
+<h4 id="帧格式">3.1.1 帧格式</h4>
+<p>首部4个字段 * 标志字段：0x7E 帧开始或结束 * 地址字段：0xFF 无地址 *
+控制字段：0x03 无控制（最初是留给以后用的，但到现在也没用） *
+协议字段：如 0x0021 IP协议 0x0023 ARP协议 尾部2个字段 * CRC校验：FCS *
+帧结束符：0x7E</p>
 <h4 id="字节填充">3.1.2 字节填充</h4>
 <p>在异步传输时（逐字符发送）为了实现透明传输，采用字节填充方法， 1.
 当信息字段中出现0x7E时，转变为（0x7D, 0x5E） 2.
 当data中出现0x7D时，转变为（0x7D, 0x5D） 3.
 当data中出现ASCII码中的控制字符时（数值小于0x20），转变为（0x7D, data[i]
-+ 0x20）如0x01转变为0x7D, 0x21 #### 3.1.3 零比特填充
-在使用SONET/SDH链路时，使用同步传输（一连串比特连续传送），为实现透明传输，采用零比特填充方法
++ 0x20）如0x01转变为0x7D, 0x21</p>
+<h4 id="零比特填充">3.1.3 零比特填充</h4>
+<p>在使用SONET/SDH链路时，使用同步传输（一连串比特连续传送），为实现透明传输，采用零比特填充方法
 &gt;
-在信息端出现连续5个1时，发送端在后面加一个0，接收端在接收到连续5个1时，如果后面是0，就丢弃0
-### 3.2 PPP协议的工作状态 1. 链路建立状态，建立链路层的LCP连接
-发送LCP的配置请求帧，是一个PPP帧，协议字段位LCP对应代码，信息字段为配置请求。另一端可以发送配置回应帧，也可以发送拒绝帧，如果发送拒绝帧，就会重新发送配置请求帧，直到对方发送配置回应帧。结束后建立了LCP链路。
-2. 鉴别状态
-只能发送LCP协议分组，鉴别协议分组。如使用口令鉴别协议PAP，通信一方发送身份识别符和口令，若鉴别成功，则进入网络控制协议NCP阶段
-3. 网络层协议状态
-PPP链路两端的网络控制协议NCP根据网络层的不同协议互相交换网络层特定的网络分组。例如是IP协议，则配置IP协议模块时使用NCP中支持的IP协议，IP控制协议IPCP
-4. 网络层配置完成后，进入链路打开状态，两端互相发送分组。
-由过程可以看到，PPP协议还包含物理层和网络层的内容，如协商网络层协议。</p>
+在信息端出现连续5个1时，发送端在后面加一个0，接收端在接收到连续5个1时，如果后面是0，就丢弃0</p>
+<h3 id="ppp协议的工作状态">3.2 PPP协议的工作状态</h3>
+<ol type="1">
+<li>链路建立状态，建立链路层的LCP连接
+发送LCP的配置请求帧，是一个PPP帧，协议字段位LCP对应代码，信息字段为配置请求。另一端可以发送配置回应帧，也可以发送拒绝帧，如果发送拒绝帧，就会重新发送配置请求帧，直到对方发送配置回应帧。结束后建立了LCP链路。</li>
+<li>鉴别状态
+只能发送LCP协议分组，鉴别协议分组。如使用口令鉴别协议PAP，通信一方发送身份识别符和口令，若鉴别成功，则进入网络控制协议NCP阶段</li>
+<li>网络层协议状态
+PPP链路两端的网络控制协议NCP根据网络层的不同协议互相交换网络层特定的网络分组。例如是IP协议，则配置IP协议模块时使用NCP中支持的IP协议，IP控制协议IPCP</li>
+<li>网络层配置完成后，进入链路打开状态，两端互相发送分组。
+由过程可以看到，PPP协议还包含物理层和网络层的内容，如协商网络层协议。</li>
+</ol>
 <h2 id="使用广播信道的数据链路">4. 使用广播信道的数据链路</h2>
 <p><strong>局域网特点</strong>：
 网络为一个单位所有，地理范围和站点数目有限。
@@ -375,13 +384,13 @@ PPP链路两端的网络控制协议NCP根据网络层的不同协议互相交�
   <div class="license-box my-3">
     <div class="license-title">
       <div>数据链路层</div>
-      <div>http://example.com/2024/09/30/数据链路层/</div>
+      <div>https://jfsas.github.io/2024/09/30/数据链路层/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>JFSAS</div>
         </div>
       
       

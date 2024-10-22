@@ -16,19 +16,19 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="JFSAS">
   <meta name="keywords" content="">
   
     <meta name="description" content="0x00 恶心的网络问题--可能错怪VM了 在vmware虚拟机上的linux系统，有时明明用着一直有网，可突然有一次开机就没网络，之后无论怎么重启都无法使网络连接上。 之前我一直以为是vmware的问题，一直在vmware上折腾，来回设置桥接，NAT，但是无果。最后只能通过重装虚拟机或者整个vmware来解决。 可能这是一个很简单的问题，刚好这学期加强了一下计算机网络的知识才突然意识到">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决linux网络接口消失的问题">
-<meta property="og:url" content="http://example.com/2024/09/29/%E8%A7%A3%E5%86%B3linux%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E6%B6%88%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:url" content="https://jfsas.github.io/2024/09/29/%E8%A7%A3%E5%86%B3linux%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E6%B6%88%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="0x00 恶心的网络问题--可能错怪VM了 在vmware虚拟机上的linux系统，有时明明用着一直有网，可突然有一次开机就没网络，之后无论怎么重启都无法使网络连接上。 之前我一直以为是vmware的问题，一直在vmware上折腾，来回设置桥接，NAT，但是无果。最后只能通过重装虚拟机或者整个vmware来解决。 可能这是一个很简单的问题，刚好这学期加强了一下计算机网络的知识才突然意识到">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-29T14:58:49.000Z">
-<meta property="article:modified_time" content="2024-09-29T16:14:43.281Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-10-17T09:25:43.300Z">
+<meta property="article:author" content="JFSAS">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="network">
 <meta name="twitter:card" content="summary_large_image">
@@ -73,7 +73,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"jfsas.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          435 字
+          434 字
         
       </span>
     
@@ -279,7 +279,7 @@
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-09-30T00:14:43+08:00
+                    本文最后更新于 2024-10-17T17:25:43+08:00
                   
                   
 
@@ -297,7 +297,7 @@
 <h2 id="x01-查看ifconfig">0x01 查看ifconfig</h2>
 <p>今天启动虚拟机，通过vscode的ssh插件连接上虚拟机，发现网络又不通了。在虚拟机上查看ifconfig
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker0: flags=4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500<br>        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255<br>        ether 02:42:91:30:75:74  txqueuelen 0  (以太网)<br>        RX packets 0  bytes 0 (0.0 B)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 0  bytes 0 (0.0 B)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br><br>lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536<br>        inet 127.0.0.1  netmask 255.0.0.0<br>        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;<br>        loop  txqueuelen 1000  (本地环回)<br>        RX packets 760  bytes 55418 (55.4 KB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 760  bytes 55418 (55.4 KB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br></code></pre></td></tr></table></figure>
-发现只有两个网卡，一个是docker0，一个是lo，没有ens33，这就是问题所在了。不是网线没接上，而是我网卡掉了啊。<br />
+发现只有两个网卡，一个是docker0，一个是lo，没有ens33，这就是问题所在。不是网线没接上，而是我网卡掉了啊。<br />
 <strong>而且这个掉网卡似乎还不能通过重启计算机来解决</strong><br />
 说好重启解决90%的问题呢</p>
 <h2 id="x02-解决办法">0x02 解决办法</h2>
@@ -331,13 +331,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>解决linux网络接口消失的问题</div>
-      <div>http://example.com/2024/09/29/解决linux网络接口消失的问题/</div>
+      <div>https://jfsas.github.io/2024/09/29/解决linux网络接口消失的问题/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>JFSAS</div>
         </div>
       
       

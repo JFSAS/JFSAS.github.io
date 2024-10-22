@@ -16,19 +16,19 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="JFSAS">
   <meta name="keywords" content="">
   
     <meta name="description" content="保护模式 cpu有两种工作模式：实模式和保护模式。当我们打开cpu的时候，cpu是在实模式下工作的，经过某种机制，才进入到保护模式。在保护模式下，cpu有更好的寻址能力，为32位操作系统提供服务。 从16位到32位操作系统 在16位操作系统下，寻址是依靠段加偏移的，从而达到1MB的寻址能力，段时地址的一部分，由cs，ds等寄存器保存。 但是在32位操作系统下，一个寄存器就有4GB的寻址能力">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统保护模式">
-<meta property="og:url" content="http://example.com/2024/09/29/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:url" content="https://jfsas.github.io/2024/09/29/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="保护模式 cpu有两种工作模式：实模式和保护模式。当我们打开cpu的时候，cpu是在实模式下工作的，经过某种机制，才进入到保护模式。在保护模式下，cpu有更好的寻址能力，为32位操作系统提供服务。 从16位到32位操作系统 在16位操作系统下，寻址是依靠段加偏移的，从而达到1MB的寻址能力，段时地址的一部分，由cs，ds等寄存器保存。 但是在32位操作系统下，一个寄存器就有4GB的寻址能力">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-29T07:22:50.000Z">
 <meta property="article:modified_time" content="2024-10-09T06:29:58.605Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="JFSAS">
 <meta property="article:tag" content="system">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -72,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"jfsas.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -373,13 +373,13 @@ id="重新设置段寄存器的值关闭a20地址线并打开中断">4.重新设
   <div class="license-box my-3">
     <div class="license-title">
       <div>操作系统保护模式</div>
-      <div>http://example.com/2024/09/29/操作系统保护模式/</div>
+      <div>https://jfsas.github.io/2024/09/29/操作系统保护模式/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>JFSAS</div>
         </div>
       
       
