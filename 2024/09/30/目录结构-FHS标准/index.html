@@ -26,11 +26,13 @@
 <meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="目录FHS标准 根据FHS的标准文件指出，他们的主要目的是希望让使用者可以了解到已安装软件通常放 置于那个目录下， 所以他们希望独立的软件开发商、操作系统制作者、以及想要维护系统的 使用者，都能够遵循FHS的标准。 也就是说，FHS的重点在于规范每个特定的目录下应该要 放置什么样子的数据而已。 这样做好处非常多，因为Linux操作系统就能够在既有的面貌下 （目录架构不变）发展出开发">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-FHS%E6%A0%87%E5%87%86/image.png">
 <meta property="article:published_time" content="2024-09-29T17:06:43.000Z">
 <meta property="article:modified_time" content="2024-09-29T17:08:51.098Z">
 <meta property="article:author" content="JFSAS">
 <meta property="article:tag" content="linux基础">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jfsas.github.io/2024/09/30/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-FHS%E6%A0%87%E5%87%86/image.png">
   
   
   
@@ -331,7 +333,7 @@ FHS建议/usr里防止数据属于可分享与不可变动，所有软件开发�
 /usr/bin：和/bin是一模一样的，/bin是链接到/usr/bin的，/bin是为了在单人维护模式下还能够被操作的指令；
 - /usr/lib
 和/lib是一模一样的，/lib是链接到/usr/lib的，/lib就是/usr/lib的软链接；
- - /usr/sbin 同被sbin链接 - /usr/local
+<img src="/2024/09/30/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-FHS%E6%A0%87%E5%87%86/image.png" srcset="/img/loading.gif" lazyload class="" title="alt text"> - /usr/sbin 同被sbin链接 - /usr/local
 系统管理员安装的软件建议安装到这个目录 - usr/share
 主要是只读文件/usr/share/man：线上说明 文档
 /usr/share/doc：软件杂项的文件说明 /usr/share/zoneinfo：与时

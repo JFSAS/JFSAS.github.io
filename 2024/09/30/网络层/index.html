@@ -26,10 +26,12 @@
 <meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="网络层 也可以看作IP层，有ip，ARP等协议。网络层的主要功能是将数据从一个网络发送到另一个网络中。网络层可以分为数据层和控制层。网络层的数据传输是不可靠的，即是会丢失的，数据传输的可靠性是靠上层协议保障的，如tcp协议。 ## 1. 数据层 ### 1.1 IP协议 网络协议IP协议，地址解析协议ARP,网际控制报文协议ICMP, 网际组管理协议IGMP。 #### 1.1.1 分类i">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E7%BD%91%E7%BB%9C%E5%B1%82/image-4.png">
 <meta property="article:published_time" content="2024-09-29T17:34:25.000Z">
 <meta property="article:modified_time" content="2024-09-29T17:35:22.625Z">
 <meta property="article:author" content="JFSAS">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jfsas.github.io/2024/09/30/%E7%BD%91%E7%BB%9C%E5%B1%82/image-4.png">
   
   
   
@@ -316,7 +318,7 @@ ARP的方法是在主机的ARP高速缓存中存放一个IP地址到MAC地址的
 2. 在局域网上的所有主机上运行的ARP进程都会受到ARP请求分组。 3.
 如果IP与ARP请求分组一致，就收下ARP请求，并发送ARP响应分组并填入自己的MAC地址<strong>ARP响应式单播的</strong>
 4. 主机受到ARP响应后将IP，MAC映射写入。 ### 1.3 IP数据报的格式
-以4个字节为一个单位，固定部分20字节  #### 1.3.1 ip分片
+以4个字节为一个单位，固定部分20字节 <img src="/2024/09/30/%E7%BD%91%E7%BB%9C%E5%B1%82/image-4.png" srcset="/img/loading.gif" lazyload class="" title="alt text"> #### 1.3.1 ip分片
 是否对ip分片，取决于ip报的长度不能长于链路层MTU，如果过长就要分片。<br />
 <strong>标识</strong> ：表示几个分片式同一个数据包切片的
 <strong>标志</strong> ：表示该数据报可不可以分片 <strong>片偏移</strong>

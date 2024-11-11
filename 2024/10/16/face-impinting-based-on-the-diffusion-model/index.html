@@ -26,11 +26,15 @@
 <meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="Masked Face Inpainting Using Denoising Diffusion Probabilistic Models ---IEEE[1] 2024 这篇文章的实验比较水，但提供了一个方法。 利用DDPM人脸补全方法，该文的方法是基于一个未修改的预训练DDPM. 原始的DDPM是从随机的高斯图像开始生成的，这与要修复的图像之间并无联系， 所以需要修改为图生图的方">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jfsas.github.io/2024/10/16/face-impinting-based-on-the-diffusion-model/image.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/10/16/face-impinting-based-on-the-diffusion-model/image-2.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/10/16/face-impinting-based-on-the-diffusion-model/image-1.png">
 <meta property="article:published_time" content="2024-10-16T01:25:29.000Z">
 <meta property="article:modified_time" content="2024-10-16T06:51:39.354Z">
 <meta property="article:author" content="JFSAS">
 <meta property="article:tag" content="-face impinting">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jfsas.github.io/2024/10/16/face-impinting-based-on-the-diffusion-model/image.png">
   
   
   
@@ -309,7 +313,7 @@ m<em>x来生成未被遮挡区域图像， x </em> (1 - m)表示被遮挡区域�
 <p><span class="math inline">\(x^knwon\)</span> 是推理开始已知的 <span
 class="math inline">\(x^unknwon\)</span>是要推理出来补全在<span
 class="math inline">\(x^knwon\)</span>中的。<br />
- 这是推理过程中的公式。从<span
+<img src="/2024/10/16/face-impinting-based-on-the-diffusion-model/image.png" srcset="/img/loading.gif" lazyload class="" title="alt text"> 这是推理过程中的公式。从<span
 class="math inline">\(x_t\)</span>推理到<span
 class="math inline">\(x_0\)</span>.<br />
 每一个<span class="math inline">\(x_t\)</span>是由<span
@@ -329,14 +333,14 @@ class="hint--top hint--rounded"
 aria-label="https://openaccess.thecvf.com/content/CVPR2022/html/Lugmayr_RePaint_Inpainting_Using_Denoising_Diffusion_Probabilistic_Models_CVPR_2022_paper.html">[2]</span></a></sup>
 --cvpr2022</h2>
 <p>这篇文章的修复方法和上一篇是一样的，考虑到发布时间，上一篇应该是基于这一篇写出来的。两篇文章的算法介绍一模一样。<br />
-
+<img src="/2024/10/16/face-impinting-based-on-the-diffusion-model/image-2.png" srcset="/img/loading.gif" lazyload class="" title="alt text">
 采用与预训练DDPM模型开源<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span
 class="hint--top hint--rounded"
 aria-label="https://github.com/andreas128/RePaint`">[3]</span></a></sup>。
 才用diffusion的缺点是推理的速度很慢。<br />
 除了diffusion方法外，大多数图像生成基于GAN。<br />
 模型仅利用现成的DDPM模型，模型不争对修复任务进行训练。而是在推理过程中利用给定像素来调节。<br />
-</p>
+<img src="/2024/10/16/face-impinting-based-on-the-diffusion-model/image-1.png" srcset="/img/loading.gif" lazyload class="" title="alt text"></p>
 <p>这里再说一下推理算法，由于再推理过程中需要对掩码区域编码得到m。在实际的应用中，被口罩墨镜等物品遮挡的区域需要先被识别出来再编码得到m，这可能需要用到一些人脸遮蔽检测模型来"画出"被遮挡区域。</p>
 <p>结合这篇文章的补全方法和arcface，领域适应迁移学习，也许能达到很好的效果。我们可以通过补全模型生成多个可能的补全图像，
 比如一个口罩遮蔽人脸，其鼻子嘴唇形状上是未知的，生成多种组合的补全图像，能产生多个相似度对比参数，
@@ -461,9 +465,9 @@ class="footnote-text"><span>https://github.com/andreas128/RePaint`
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/21/%E5%86%85%E6%A0%B8%E9%9B%8F%E5%BD%A2/" title="内核雏形">
+                      <a href="/2024/10/23/python%E7%9B%B8%E5%AF%B9%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5%E4%B8%8E%E7%9B%B8%E5%AF%B9%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" title="python相对模块引入与相对文件路径">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">内核雏形</span>
+                        <span class="hidden-mobile">python相对模块引入与相对文件路径</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

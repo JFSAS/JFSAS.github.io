@@ -26,11 +26,21 @@
 <meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="Masked face recognition using domain adaptation 论文 -- 细读 2024.9 由于缺乏带有身份标签的真实世界蒙面人脸数据集，大多数现有蒙面人脸识别方法直接在从现有未蒙面人脸数据集生成的合成蒙面人脸上重新训练模型[ 10 ]。这种方法的主要缺点是使用合成蒙面人脸不能保证人脸识别系统对现实世界蒙面人脸的性能。 introduce 该网络">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816032750895.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816033316662.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816034104337.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816150735594.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816165830216.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816170339674.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816170436531.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816170613760.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816171259798.png">
 <meta property="article:published_time" content="2024-09-29T17:22:02.000Z">
 <meta property="article:modified_time" content="2024-09-29T17:24:08.721Z">
 <meta property="article:author" content="JFSAS">
 <meta property="article:tag" content="人脸识别">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jfsas.github.io/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816032750895.png">
   
   
   
@@ -315,7 +325,7 @@ face 上的表现分析</h2>
 识别从人脸数据库中找到与输入人脸图片最匹配的图片</li>
 </ul>
 <p>start-of-the-art 人脸识别器使 ArcFace</p>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816032750895.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816032750895">
 <h3 id="pure-arcface">pure ArcFace</h3>
 <p>合成遮挡人脸使利用<em>MaskTheFace</em> 软件生成，即从LFW（Labeld
 Faces in the Wild）到MLFW。</p>
@@ -360,7 +370,7 @@ Faces in the Wild）到MLFW。</p>
 <p>PCA:从高维特征中提取到低维特征表示，类似于投影</p>
 </blockquote>
 <h3 id="proposed-method">Proposed method</h3>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816033316662.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816033316662">
 <ol type="1">
 <li>feature Extraction Backbone 可以是残差网络如ResNet-18
 ，ResNet-50，用来提取特征的</li>
@@ -370,13 +380,13 @@ Faces in the Wild）到MLFW。</p>
 <li>Domain Adaptation Layer 是用来领域适应，特征分布转换。</li>
 </ol>
 <h4 id="feature-refinemnet-layer">2. Feature refinemnet layer</h4>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816034104337.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816034104337">
 <p>用来对激活区域进行对齐来提取关键特征的。是一个自注意力机制块，自注意力分数和value相乘输出</p>
 <p>所以
 <strong>注意力得分高的就可以代表这个区域是高度激活的</strong>。</p>
 <h4 id="domain-adaptation-layer">4.Domain Adaptation Layer</h4>
 <p>为了解决特征分布不重合的问题</p>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816150735594.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816150735594">
 <p>使用Mask Label训练。</p>
 <p>使用领域对抗（DANN）网络训练（与GAN网络类似），有一个generator和一个discriminator。</p>
 <p>discriminator是要从generator生成的潜在特征中分辨出蒙面特征，是一个分类器，分类该图片是否蒙面，<span
@@ -429,26 +439,26 @@ L_a  = \frac{1}{B}\sum_{i=1}^B\parallel A(x_i) -A(\hat x_i)\parallel
 <li>backbone 是完整的ResNet-50</li>
 <li>Feature Refinement layer</li>
 </ol>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816165830216.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816165830216">
 <p>输出是512维的</p>
 <ol start="3" type="1">
 <li><p>domin adaption layer -- mask classification layer</p>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816170339674.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816170339674">
 <p>输出是一个2维向量，表示masked标签</p>
 <ol start="4" type="1">
 <li><p>identity classification layer</p>
-</li>
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816170436531.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816170436531"></li>
 </ol></li>
 </ol>
 <p>输出应该会接一个softmax计算ArcFace loss</p>
 <h3 id="结果">结果</h3>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816170613760.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816170613760">
 <p>RMFD上的验证结果87.84，相比于STL，retrained
 ArcFace来说提升不大，可能是由于RMFD中人脸图像质量低，MTCNN无法对人脸进行对其，而导致的图像质量差。</p>
 <p>在MFR2和MFTFI上有很高的正确率</p>
 <h3 id="分析添加的domain-adaptation和refinemen层的影响">分析添加的domain
 Adaptation和refinemen层的影响</h3>
-
+<img src="/2024/09/30/%E9%A2%86%E5%9F%9F%E9%80%82%E5%BA%94%E5%9C%A8MFR%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/image-20240816171259798.png" srcset="/img/loading.gif" lazyload class="" title="image-20240816171259798">
 <p>可以看到只添加一层和原始层之间的对比关系</p>
 <p>在RMFD上还是只有少量提升</p>
 <h2 id="总结">总结</h2>

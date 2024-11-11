@@ -26,10 +26,15 @@
 <meta property="og:site_name" content="JFSAS">
 <meta property="og:description" content="物理层 物理层考虑的是如何在传输媒体上传输比特流。 硬件设施和传输媒体种类很多，可以传输所有传输媒体。 物理层的主要任务也可以描述为确定传输媒体的接口有关的一些特性 -- 如接口大小，排列，电器特性，电压。 ## 1.通信基础知识 ## 1.1 基本概念 通信模型 包括 源系统 ------------ 1. 源点 -- 数据 2. 发送器 -- 对源点的数据进行编码 ------">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image-1.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image-2.png">
+<meta property="og:image" content="https://jfsas.github.io/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image-3.png">
 <meta property="article:published_time" content="2024-09-29T17:32:15.000Z">
 <meta property="article:modified_time" content="2024-09-29T17:33:52.622Z">
 <meta property="article:author" content="JFSAS">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jfsas.github.io/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image.png">
   
   
   
@@ -311,8 +316,8 @@
 调试后依然是基带信号。又称为编码，把数字信号转换为另一种数字信号 *
 带通调制
 使用载波调制，将数字信号转化为模拟信号，调制后的信号称为带通信号。</p>
-<p><strong>编码</strong>  <strong>带通调制</strong>
- * 调幅（AM）：调制信号的幅度随基带信号的变化而变化 *
+<p><strong>编码</strong> <img src="/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image.png" srcset="/img/loading.gif" lazyload class="" title="alt text"> <strong>带通调制</strong>
+<img src="/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image-1.png" srcset="/img/loading.gif" lazyload class="" title="alt text"> * 调幅（AM）：调制信号的幅度随基带信号的变化而变化 *
 调频（FM）：调制信号的频率随基带信号的变化而变化 *
 调相（PM）：调制信号的相位随基带信号的变化而变化</p>
 <h2 id="信道极限容量">1.2 信道极限容量</h2>
@@ -338,7 +343,7 @@ class="math inline">\(N\)</span>是噪声功率。<br />
 1. 导向型 -- 有线固体导引传播 2. 非导向型 -- 无线传播 ### 1.3.1 导向型
 <strong>双绞线</strong>
 由两根绝缘铜线组成，每根线中有许多细铜线，细铜线被绝缘包裹，两根线绕在一起。通信线路一般为几公里。距离太长会由衰减。
- <strong>同轴电缆</strong>
+<img src="/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image-2.png" srcset="/img/loading.gif" lazyload class="" title="alt text"> <strong>同轴电缆</strong>
 由一根铜线和一层绝缘层组成，铜线被绝缘包裹，再由一层金属网层包裹，最外层是绝缘层。
 <strong>光缆</strong>
 光纤由非常透明的石英玻璃拉成丝，由纤芯和包层组成。光波在纤芯中传播，由光脉冲为1，无光脉冲为0
@@ -357,7 +362,7 @@ ADSL可以复用吸纳有电话网中的用户线。借助用户线两端的ADSL
 HFC（光纤同轴混合网路）主干网采用高宽带光纤传输，在光纤节点将光纤信号转换为电信号，通过同轴电缆传输到用户家中。由于同轴光缆是用户共享的，所以用户带宽在许多用户传输数据时会有波动。
 3.
 FTTH（光纤到户）用户家中直接接入光纤，带宽高，速度快，但是成本高。OLT是连接到光纤主干的光纤终端，OLT把下行数据发往无源的1：N光分路器，然后<em>广播</em>到用户家中的ONU。接受数据时ONU根据表示只接受发送给自己的数据。
-</p>
+<img src="/2024/09/30/%E7%89%A9%E7%90%86%E5%B1%82/image-3.png" srcset="/img/loading.gif" lazyload class="" title="alt text"></p>
 
                 
               </div>
