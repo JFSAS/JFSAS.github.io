@@ -4,6 +4,32 @@
   
   
   <entry>
+    <title>ubuntu 快捷键</title>
+    <link href="/2024/11/11/ubuntu-%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    <url>/2024/11/11/ubuntu-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+    
+    <content type="html"><![CDATA[<p>准确来说应该是<code>GNOME</code>的快捷键，<code>GNOME</code>是Linux的桌面GUI，提供linux的图形化桌面。</p><p>使用以下shell代码可以列出所有快捷键列表 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">for k in `gsettings list-keys org.gnome.desktop.wm.keybindings`;<br>    do echo $k = `gsettings get org.gnome.desktop.wm.keybindings $k`;<br>done<br><br></code></pre></td></tr></table></figure> 部分output如下<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs shell">activate-window-menu = [&#x27;&lt;Alt&gt;space&#x27;]<br>always-on-top = @as []<br>begin-move = [&#x27;&lt;Alt&gt;F7&#x27;]<br>begin-resize = [&#x27;&lt;Alt&gt;F8&#x27;]<br>close = [&#x27;&lt;Alt&gt;F4&#x27;]<br>cycle-group = [&#x27;&lt;Alt&gt;F6&#x27;]<br>cycle-group-backward = [&#x27;&lt;Shift&gt;&lt;Alt&gt;F6&#x27;]<br>cycle-panels = [&#x27;&lt;Control&gt;&lt;Alt&gt;Escape&#x27;]<br>cycle-panels-backward = [&#x27;&lt;Shift&gt;&lt;Control&gt;&lt;Alt&gt;Escape&#x27;]<br>cycle-windows = [&#x27;&lt;Alt&gt;Escape&#x27;]<br>cycle-windows-backward = [&#x27;&lt;Shift&gt;&lt;Alt&gt;Escape&#x27;]<br>lower = @as []<br>maximize = @as []<br>maximize-horizontally = @as []<br>maximize-vertically = @as []<br>minimize = [&#x27;&lt;Super&gt;h&#x27;]<br>move-to-center = @as []<br>move-to-corner-ne = @as []<br>move-to-corner-nw = @as []<br>move-to-corner-se = @as []<br>move-to-corner-sw = @as []<br>move-to-monitor-down = [&#x27;&lt;Super&gt;&lt;Shift&gt;Down&#x27;]<br>move-to-monitor-left = [&#x27;&lt;Super&gt;&lt;Shift&gt;Left&#x27;]<br>move-to-monitor-right = [&#x27;&lt;Super&gt;&lt;Shift&gt;Right&#x27;]<br>move-to-monitor-up = [&#x27;&lt;Super&gt;&lt;Shift&gt;Up&#x27;]<br><br></code></pre></td></tr></table></figure></p><p>如果要修改快捷键可以使用如下指令 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">gsettings set org.gnome.desktop.wm.keybindings panel-run-dialog [] #disable ALT+F1<br><span class="hljs-meta prompt_"># </span><span class="language-bash">gsettings [--schemadir 架构目录] <span class="hljs-built_in">set</span> 架构[:路径] 键 键值</span><br></code></pre></td></tr></table></figure></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Android Binder</title>
+    <link href="/2024/10/31/Android-Binder/"/>
+    <url>/2024/10/31/Android-Binder/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>python相对模块引入与相对文件路径</title>
     <link href="/2024/10/23/python%E7%9B%B8%E5%AF%B9%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5%E4%B8%8E%E7%9B%B8%E5%AF%B9%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/"/>
     <url>/2024/10/23/python%E7%9B%B8%E5%AF%B9%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5%E4%B8%8E%E7%9B%B8%E5%AF%B9%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/</url>

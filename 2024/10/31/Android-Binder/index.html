@@ -19,22 +19,19 @@
   <meta name="author" content="JFSAS">
   <meta name="keywords" content="">
   
-    <meta name="description" content="0x00 相对路径相对的是哪个路径 首先我们要知道python会参考两个路径分别是cwd和path,其分别可以通过 12345import oscwd &#x3D; os.getcwd() # cwd 工作路径import syspath &#x3D; sys.path # path 环境变量 我们发现在导入模块和读取文件时相对的是不同路径，这在读取和导入不再同一父目录的文件和模块时尤为重要。 我们有一个pr">
-<meta property="og:type" content="article">
-<meta property="og:title" content="python相对模块引入与相对文件路径">
-<meta property="og:url" content="https://jfsas.github.io/2024/10/23/python%E7%9B%B8%E5%AF%B9%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5%E4%B8%8E%E7%9B%B8%E5%AF%B9%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android Binder">
+<meta property="og:url" content="https://jfsas.github.io/2024/10/31/Android-Binder/index.html">
 <meta property="og:site_name" content="JFSAS">
-<meta property="og:description" content="0x00 相对路径相对的是哪个路径 首先我们要知道python会参考两个路径分别是cwd和path,其分别可以通过 12345import oscwd &#x3D; os.getcwd() # cwd 工作路径import syspath &#x3D; sys.path # path 环境变量 我们发现在导入模块和读取文件时相对的是不同路径，这在读取和导入不再同一父目录的文件和模块时尤为重要。 我们有一个pr">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-22T16:07:38.000Z">
-<meta property="article:modified_time" content="2024-10-22T17:09:26.475Z">
+<meta property="article:published_time" content="2024-10-31T07:43:01.000Z">
+<meta property="article:modified_time" content="2024-10-31T07:43:01.421Z">
 <meta property="article:author" content="JFSAS">
-<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>python相对模块引入与相对文件路径 - JFSAS</title>
+  <title>Android Binder - JFSAS</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="python相对模块引入与相对文件路径"></span>
+            <span id="subtitle" data-typed-text="Android Binder"></span>
           
         </div>
 
@@ -213,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-23 00:07" pubdate>
-          2024年10月23日 凌晨
+        <time datetime="2024-10-31 15:43" pubdate>
+          2024年10月31日 下午
         </time>
       </span>
     
@@ -225,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          0 字
         
       </span>
     
@@ -236,7 +233,7 @@
         
         
         
-          10 分钟
+          1 分钟
         
       </span>
     
@@ -273,12 +270,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">python相对模块引入与相对文件路径</h1>
+            <h1 id="seo-header">Android Binder</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2024-10-23T01:09:26+08:00
+                    本文最后更新于 2024-10-31T15:43:01+08:00
                   
                   
 
@@ -288,38 +285,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="x00-相对路径相对的是哪个路径">0x00 相对路径相对的是哪个路径</h2>
-<p>首先我们要知道python会参考两个路径分别是<code>cwd</code>和<code>path</code>,其分别可以通过</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>cwd = os.getcwd() <span class="hljs-comment"># cwd 工作路径</span><br><br><span class="hljs-keyword">import</span> sys<br>path = sys.path <span class="hljs-comment"># path 环境变量</span><br></code></pre></td></tr></table></figure>
-<p>我们发现在导入模块和读取文件时相对的是不同路径，这在读取和导入不再同一父目录的文件和模块时尤为重要。</p>
-<p>我们有一个project其目录结构如图：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">|-- project</span><br><span class="hljs-string">|-- task</span><br>    <span class="hljs-string">|--test1.py</span><br>    <span class="hljs-string">|--test2.py</span><br>    <span class="hljs-string">|--11.txt</span><br><span class="hljs-string">|-- test1.py</span><br><span class="hljs-string">|-- test2.py</span><br><span class="hljs-string">|-- 11.txt</span><br></code></pre></td></tr></table></figure>
-<h2 id="x01-cwd-工作目录">0x01 cwd 工作目录</h2>
-<p>工作目录是python解释器运行的目录，程序去读取文件会更具cwd来寻找相对地址，<strong>且只会根据cwd，而与path无关</strong>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">在project目录下运行py文件</span><br>PS D:\tmp\project&gt; python task/test1.py<br>this is project/task/test1.py, now cwd is D:\tmp\project and sys.path[0] is D:\tmp\project\task<br><span class="hljs-meta prompt_"># </span><span class="language-bash">在task目录下运行py文件</span><br>PS D:\tmp\project\task&gt; python test1.py<br>this is project/task/test1.py, now cwd is D:\tmp\project\task and sys.path[0] is D:\tmp\project\task<br></code></pre></td></tr></table></figure>
-可以看到在不同的目录下使用python解释器运行文件会有不同cwd，而具有相同的sys
-path</p>
-<h2 id="x02-sys-path">0x02 sys path</h2>
-<p>sys
-path第一项是python文件所在的目录，在导入模块时，会去搜索path中的地址和相对地址，<strong>且与cwd无关</strong>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">运行project目录下的<span class="hljs-built_in">test</span></span><br>D:\tmp\project&gt; python test1.py<br>this is project/test1.py, now cwd is D:\tmp\project<br><span class="hljs-meta prompt_"># </span><span class="language-bash">运行project/task文件下的<span class="hljs-built_in">test</span></span><br>PS D:\tmp\project&gt; python task/test1.py<br>this is project/test1.py, now cwd is D:\tmp\project and sys.path[0] is D:\tmp\project\task<br></code></pre></td></tr></table></figure> 可以看到sys path的第一项根据python文件进行更改。</p>
-<h2 id="x03-根据相对地址导入模块">0x03 根据相对地址导入模块</h2>
-<p>导入模块时相对的时sys.path中的地址。 ###
-在task/test1.py导入test2.py</p>
-<p>在跑一个项目时，看到他在导入同一目录下文件时使用的是以下代码,并且该写法vscode的静态语法检查不会报错。
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#file： project/task/test1.py</span><br><span class="hljs-keyword">import</span> task.test2.py<br><br></code></pre></td></tr></table></figure> 运行结果是 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">PS D:\tmp\project&gt; &amp; D:/ANACONDA/envs/GA/python.exe d:/tmp/project/task/test1.py<br>this is project/task/test1.py, now cwd is D:\tmp\project and sys.path[0] is d:\tmp\project\task<br>Traceback (most recent call last):<br>  File &quot;d:\tmp\project\task\test1.py&quot;, line 4, in &lt;module&gt;<br>    import task.test2<br>ModuleNotFoundError: No module named &#x27;task&#x27;<br></code></pre></td></tr></table></figure></p>
-<p>通过sys path第一项我们可以看到其在d:</p>
-<h3 id="解决办法">解决办法</h3>
-<p>我们需要将父目录添加到环境变量中才能导入父目录这个文件夹。 * 方法1：
-将导入修改为 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> test2.py <br></code></pre></td></tr></table></figure> * 方法2： 我们要使我们的环境兼容他的代码 *
-在debug使可以在launch中添加父目录 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json">    <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0.2.0&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;configurations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Python 调试程序: 当前文件&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;debugpy&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;request&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;launch&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;program&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;file&#125;&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;console&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;integratedTerminal&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;env&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;PYTHONPATH&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;$&#123;workspaceFolder&#125;&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-comment">// 工作目录或者&quot;..&quot;</span><br>        <span class="hljs-attr">&quot;envFile&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;workspaceFolder&#125;/.env&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br></code></pre></td></tr></table></figure> *
-也可以手动在powershell中为python添加环境变量 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ..<br><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">env</span>:PYTHONENV=<span class="hljs-variable">$pwd</span></span><br></code></pre></td></tr></table></figure></p>
-<h2 id="x04-根据相对地址导入文件">0x04 根据相对地址导入文件</h2>
-<p>我在网上查找了很多资料，都是人都说相对路径相对的是当前文件的路径，其实不然。从<code>0x01</code>我们知道<code>cwd</code>会随着python调用的改变而改变，即使文件地址不变，在不同目录调用使用python文件会读到不同的文件</p>
-<h3
-id="实验表明读取文件的相对地址是相对于cwd">实验表明读取文件的相对地址是相对于cwd</h3>
-<p>test1.py代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;this is project/task/test1.py, now cwd is <span class="hljs-subst">&#123;os.getcwd()&#125;</span> and sys.path[0] is <span class="hljs-subst">&#123;sys.path[<span class="hljs-number">0</span>]&#125;</span>&quot;</span>)<br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;11.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    <span class="hljs-built_in">print</span>(f.read())<br></code></pre></td></tr></table></figure> 在不同目录调用test1的实验 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">在project目录中调用project/task/test1</span><br>PS D:\tmp\project&gt; &amp; D:/ANACONDA/envs/GA/python.exe d:/tmp/project/task/test1.py                                                                    <br>this is project/task/test1.py, now cwd is D:\tmp\project and sys.path[0] is d:\tmp\project\task<br>i am project/11.txt<br><span class="hljs-meta prompt_">#</span><span class="language-bash">在task目录中调用project/task/test1.py</span><br>this is project/task/test1.py, now cwd is D:\tmp\project\task and sys.path[0] is D:\tmp\project\task<br>i am project/task/11.txt<br>&#x27;&#x27;&#x27;<br><br>python 文件修改为open(&quot;../11.txt&quot;, &quot;r&quot;)，<br>&#x27;&#x27;&#x27;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">在task目录中调用project/task/test1.py</span><br>PS D:\tmp\project\task&gt; &amp; D:/ANACONDA/envs/GA/python.exe d:/tmp/project/task/test1.py<br>this is project/task/test1.py, now cwd is D:\tmp\project\task and sys.path[0] is d:\tmp\project\task<br>i am project/11.txt<br><span class="hljs-meta prompt_">#</span><span class="language-bash">在project目录中调用</span><br>this is project/task/test1.py, now cwd is D:\tmp\project and sys.path[0] is D:\tmp\project\task<br>Traceback (most recent call last):<br>  File &quot;D:\tmp\project\task\test1.py&quot;, line 4, in &lt;module&gt;<br>    with open(&quot;../11.txt&quot;, &quot;r&quot;) as f:<br>FileNotFoundError: [Errno 2] No such file or directory: &#x27;../11.txt&#x27;<br>&#x27;&#x27;&#x27;<br>文件会报错，因为在project的父目录，也即D:\tmp中没有11.txt文件。<br>&#x27;&#x27;&#x27;<br></code></pre></td></tr></table></figure>
-可以看到path没有变，而cwd变化了，并且读取到了不同的txt文件。所以读取文件的相对路径依据的是cwd</p>
+                
 
                 
               </div>
@@ -328,34 +294,6 @@ id="实验表明读取文件的相对地址是相对于cwd">实验表明读取�
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/python/" class="category-chain-item">python</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/python/" class="print-no-link">#python</a>
-      
-    </div>
   
 </div>
 
@@ -365,8 +303,8 @@ id="实验表明读取文件的相对地址是相对于cwd">实验表明读取�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>python相对模块引入与相对文件路径</div>
-      <div>https://jfsas.github.io/2024/10/23/python相对模块引入与相对文件路径/</div>
+      <div>Android Binder</div>
+      <div>https://jfsas.github.io/2024/10/31/Android-Binder/</div>
     </div>
     <div class="license-meta">
       
@@ -378,7 +316,7 @@ id="实验表明读取文件的相对地址是相对于cwd">实验表明读取�
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月23日</div>
+          <div>2024年10月31日</div>
         </div>
       
       
@@ -410,9 +348,9 @@ id="实验表明读取文件的相对地址是相对于cwd">实验表明读取�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/10/31/Android-Binder/" title="Android Binder">
+                      <a href="/2024/11/11/ubuntu-%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="ubuntu 快捷键">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android Binder</span>
+                        <span class="hidden-mobile">ubuntu 快捷键</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -420,8 +358,8 @@ id="实验表明读取文件的相对地址是相对于cwd">实验表明读取�
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/21/%E5%86%85%E6%A0%B8%E9%9B%8F%E5%BD%A2/" title="内核雏形">
-                        <span class="hidden-mobile">内核雏形</span>
+                      <a href="/2024/10/23/python%E7%9B%B8%E5%AF%B9%E6%A8%A1%E5%9D%97%E5%BC%95%E5%85%A5%E4%B8%8E%E7%9B%B8%E5%AF%B9%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/" title="python相对模块引入与相对文件路径">
+                        <span class="hidden-mobile">python相对模块引入与相对文件路径</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
