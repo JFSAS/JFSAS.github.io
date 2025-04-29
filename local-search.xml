@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>删除已经commit的大文件</title>
+    <link href="/2025/04/30/%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8Fcommit%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6/"/>
+    <url>/2025/04/30/%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8Fcommit%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<p>你可以用如下命令彻底从 Git 历史中移除 videos下的所有文件（包括所有分支和历史），并让仓库变小：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 用 filter-branch 移除所有历史中的 web/static/videos 下的文件</span><br>git filter-branch --index-filter <span class="hljs-string">&quot;git rm -r --cached --ignore-unmatch web/static/videos&quot;</span> -- --all<br><br><span class="hljs-comment"># 2. 删除 filter-branch 产生的备份引用和日志</span><br><span class="hljs-built_in">rm</span> -rf .git/refs/original<br><span class="hljs-built_in">rm</span> -rf .git/logs/<br><br><span class="hljs-comment"># 3. 垃圾回收和清理不可达对象</span><br>git gc<br>git prune<br><br><span class="hljs-comment"># 4. 强制推送到远程（如果有远程仓库）</span><br>git push --force --all<br>git push --force --tags<br></code></pre></td></tr></table></figure><p><strong>注意事项：</strong> -这会重写所有分支历史，所有协作者都需要重新 clone 或强制同步。 -操作前请备份你的仓库。 - .gitignore 里建议保留<code>web/static/videos/*</code>，防止以后误加大文件。</p><p>这样可以彻底清理 videos 下的所有文件及其历史记录。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>git</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>使用OpenVPN连接有公网IP与无公网IP的服务器</title>
     <link href="/2025/04/08/%E4%BD%BF%E7%94%A8OpenVPN%E8%BF%9E%E6%8E%A5%E6%9C%89%E5%85%AC%E7%BD%91IP%E4%B8%8E%E6%97%A0%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     <url>/2025/04/08/%E4%BD%BF%E7%94%A8OpenVPN%E8%BF%9E%E6%8E%A5%E6%9C%89%E5%85%AC%E7%BD%91IP%E4%B8%8E%E6%97%A0%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
