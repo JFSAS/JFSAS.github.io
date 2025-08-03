@@ -19,22 +19,22 @@
   <meta name="author" content="JFSAS">
   <meta name="keywords" content="">
   
-    <meta name="description" content="你可以用如下命令彻底从 Git 历史中移除 videos 下的所有文件（包括所有分支和历史），并让仓库变小： 1234567891011121314# 1. 用 filter-branch 移除所有历史中的 web&#x2F;static&#x2F;videos 下的文件git filter-branch --index-filter &quot;git rm -r --cached --ignore-unmat">
+    <meta name="description" content="0x00 可迭代对象与迭代器  可迭代对象是指实现了__iter__()方法的对象。实现了__getitem__()方法的对象也可以被迭代。 迭代器是指实现了__next__()方法的对象。迭代器实现了__iter__()方法，但其返回自身。 __iter__()方法返回一个迭代器对象。 __next__()方法返回迭代器的下一个值。  123456789&#x27;&#x27;&amp;#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="删除已经commit的大文件">
-<meta property="og:url" content="https://jfsas.github.io/2025/04/30/%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8Fcommit%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:title" content="python | 迭代器">
+<meta property="og:url" content="https://jfsas.github.io/2025/08/03/python-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E5%8F%AF%E8%BF%AD%E4%BB%A3%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8Afor%E5%BE%AA%E7%8E%AF%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="JFSAS">
-<meta property="og:description" content="你可以用如下命令彻底从 Git 历史中移除 videos 下的所有文件（包括所有分支和历史），并让仓库变小： 1234567891011121314# 1. 用 filter-branch 移除所有历史中的 web&#x2F;static&#x2F;videos 下的文件git filter-branch --index-filter &quot;git rm -r --cached --ignore-unmat">
+<meta property="og:description" content="0x00 可迭代对象与迭代器  可迭代对象是指实现了__iter__()方法的对象。实现了__getitem__()方法的对象也可以被迭代。 迭代器是指实现了__next__()方法的对象。迭代器实现了__iter__()方法，但其返回自身。 __iter__()方法返回一个迭代器对象。 __next__()方法返回迭代器的下一个值。  123456789&#x27;&#x27;&amp;#">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-29T16:44:37.000Z">
-<meta property="article:modified_time" content="2025-04-29T16:46:24.944Z">
+<meta property="article:published_time" content="2025-08-03T12:11:20.000Z">
+<meta property="article:modified_time" content="2025-08-03T12:39:27.600Z">
 <meta property="article:author" content="JFSAS">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>删除已经commit的大文件 - JFSAS</title>
+  <title>python | 迭代器 - JFSAS</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="删除已经commit的大文件"></span>
+            <span id="subtitle" data-typed-text="python | 迭代器"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-30 00:44" pubdate>
-          2025年4月30日 凌晨
+        <time datetime="2025-08-03 20:11" pubdate>
+          2025年8月3日 晚上
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          204 字
+          781 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          2 分钟
+          7 分钟
         
       </span>
     
@@ -273,12 +273,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">删除已经commit的大文件</h1>
+            <h1 id="seo-header">python | 迭代器</h1>
             
               <p id="updated-time" class="note note-info" style="display: none">
                 
                   
-                    本文最后更新于 2025-04-30T00:46:24+08:00
+                    本文最后更新于 2025-08-03T20:39:27+08:00
                   
                   
 
@@ -288,14 +288,38 @@
             
               <div class="markdown-body">
                 
-                <p>你可以用如下命令彻底从 Git 历史中移除 videos
-下的所有文件（包括所有分支和历史），并让仓库变小：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 用 filter-branch 移除所有历史中的 web/static/videos 下的文件</span><br>git filter-branch --index-filter <span class="hljs-string">&quot;git rm -r --cached --ignore-unmatch web/static/videos&quot;</span> -- --all<br><br><span class="hljs-comment"># 2. 删除 filter-branch 产生的备份引用和日志</span><br><span class="hljs-built_in">rm</span> -rf .git/refs/original<br><span class="hljs-built_in">rm</span> -rf .git/logs/<br><br><span class="hljs-comment"># 3. 垃圾回收和清理不可达对象</span><br>git gc<br>git prune<br><br><span class="hljs-comment"># 4. 强制推送到远程（如果有远程仓库）</span><br>git push --force --all<br>git push --force --tags<br></code></pre></td></tr></table></figure>
-<p><strong>注意事项：</strong> -
-这会重写所有分支历史，所有协作者都需要重新 clone 或强制同步。 -
-操作前请备份你的仓库。 - .gitignore 里建议保留
-<code>web/static/videos/*</code>，防止以后误加大文件。</p>
-<p>这样可以彻底清理 videos 下的所有文件及其历史记录。</p>
+                <h2 id="x00-可迭代对象与迭代器">0x00 可迭代对象与迭代器</h2>
+<ul>
+<li><p>可迭代对象是指实现了<code>__iter__()</code>方法的对象。实现了<code>__getitem__()</code>方法的对象也可以被迭代。</p></li>
+<li><p>迭代器是指实现了<code>__next__()</code>方法的对象。迭代器实现了<code>__iter__()</code>方法，<strong>但其返回自身</strong>。</p></li>
+<li><p><code>__iter__()</code>方法返回一个迭代器对象。</p></li>
+<li><p><code>__next__()</code>方法返回迭代器的下一个值。</p></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">list是一个可迭代对象，其iter方法返回一个迭代器，其没有next方法</span><br><span class="hljs-string">list的迭代器是list_iterator, 其iter方法返回自身， next方法返回下一个值</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>] <span class="hljs-comment"># type(a) == &lt;class &#x27;list&#x27;&gt;</span><br>b = a.__iter__() <span class="hljs-comment"># type(b) == &lt;class &#x27;list_iterator&#x27;&gt; </span><br><span class="hljs-built_in">next</span>(a) <span class="hljs-comment"># 抛出异常 TypeError: &#x27;list&#x27; object is not an iterator</span><br>c = b.__iter__() <span class="hljs-comment"># type(c) == &lt;class &#x27;list_iterator&#x27;&gt; 迭代器的iter返回自身</span><br></code></pre></td></tr></table></figure>
+<p>总结：迭代器必须有<code>iter</code>方法，不一定有<code>next</code>方法；可迭代对象必须有<code>iter</code>方法和<code>next</code>方法。可迭代对象和迭代器可以是同一个对象，但不一定是。<br />
+<strong>可迭代对象可以通过<code>iter()</code>函数转换为迭代器。</strong></p>
+<h2 id="x01-迭代器与生成器的区别">0x01 迭代器与生成器的区别</h2>
+<ul>
+<li><p>迭代器是一个对象，它实现了<code>__iter__()</code>和<code>__next__()</code>方法。</p></li>
+<li><p>生成器是一个特殊的迭代器，它使用<code>yield</code>关键字由函数来创建，产生一个生成器对象。</p>
+<p>生成器对象实现了如下方法：</p>
+<ul>
+<li><strong>iter</strong>()：返回自身，使其成为可迭代对象。</li>
+<li><strong>next</strong>()：每次调用返回下一个 yield 的值，直到结束抛出
+StopIteration。</li>
+<li>还实现了 send(value)、throw(type, value=None,
+traceback=None)、close() 等方法，用于高级生成器控制。</li>
+</ul></li>
+</ul>
+<h2 id="x02-可使用下标索引的对象">0x02 可使用下标索引的对象</h2>
+<p>可通过下标索引的对象是实现了<code>__getitem__()</code>方法的对象。常见的可使用下标索引的对象包括：
+* 列表（list） * 元组（tuple） * 字典（dict） * 字符串（str）</p>
+<p>可以使用<code>list()</code>或者<code>tuple()</code>函数将可迭代对象转换为列表或元组，从而可以使用下标索引访问元素。</p>
+<p>常见的需要转化的例子有 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">gen = (x * x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>))  <span class="hljs-comment"># 生成器对象，不能直接用下标访问</span><br>lst = <span class="hljs-built_in">list</span>(gen)                  <span class="hljs-comment"># 转换为列表后可以用下标访问</span><br><span class="hljs-built_in">print</span>(lst[<span class="hljs-number">2</span>])                    <span class="hljs-comment"># 输出 4</span><br><br>s = <span class="hljs-built_in">set</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])               <span class="hljs-comment"># 集合是可迭代对象，但不能用下标访问</span><br>lst2 = <span class="hljs-built_in">list</span>(s)                   <span class="hljs-comment"># 转换为列表后可以用下标访问</span><br><span class="hljs-built_in">print</span>(lst2[<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure></p>
+<h2 id="x03-for循环原理">0x03 for循环原理</h2>
+<p>for循环会调用可迭代对象的<code>__iter__()</code>方法获取迭代器，然后在每次循环中调用迭代器的<code>__next__()</code>方法获取下一个值，直到抛出<code>StopIteration</code>异常为止。</p>
+<p>如果可迭代对象没有实现<code>__iter__()</code>方法，for循环会尝试使用<code>__getitem__()</code>方法来获取元素。从索引0开始，依次获取元素，直到抛出<code>IndexError</code>异常为止。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyIterable</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data</span>):<br>        <span class="hljs-variable language_">self</span>.data = data   <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__iter__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Creating iterator&quot;</span>)<br>        <span class="hljs-variable language_">self</span>.index = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__next__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Getting next item&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.index &lt; <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.data):<br>            result = <span class="hljs-variable language_">self</span>.data[<span class="hljs-variable language_">self</span>.index]<br>            <span class="hljs-variable language_">self</span>.index += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">return</span> result<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">raise</span> StopIteration<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, index</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Accessing item at index <span class="hljs-subst">&#123;index&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">if</span> index &lt; <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.data):<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.data[index]<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">raise</span> IndexError(<span class="hljs-string">&quot;Index out of range&quot;</span>)<br>        <br><span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> MyIterable([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]):<br>    <span class="hljs-built_in">print</span>(item)<br><br><span class="hljs-string">&quot;&quot;&quot;Output1:</span><br><span class="hljs-string">Creating iterator</span><br><span class="hljs-string">Getting next item</span><br><span class="hljs-string">1</span><br><span class="hljs-string">Getting next item</span><br><span class="hljs-string">2</span><br><span class="hljs-string">Getting next item</span><br><span class="hljs-string">3</span><br><span class="hljs-string">Getting next item</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># 注释掉iter方法</span><br><span class="hljs-string">&quot;&quot;&quot;Output2:</span><br><span class="hljs-string">Accessing item at index 0</span><br><span class="hljs-string">1</span><br><span class="hljs-string">Accessing item at index 1</span><br><span class="hljs-string">2</span><br><span class="hljs-string">Accessing item at index 2</span><br><span class="hljs-string">3</span><br><span class="hljs-string">Accessing item at index 3</span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -314,7 +338,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/git/" class="category-chain-item">git</a>
+  <a href="/categories/python/" class="category-chain-item">python</a>
   
   
 
@@ -329,7 +353,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/git/" class="print-no-link">#git</a>
+        <a href="/tags/python/" class="print-no-link">#python</a>
       
     </div>
   
@@ -341,8 +365,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>删除已经commit的大文件</div>
-      <div>https://jfsas.github.io/2025/04/30/删除已经commit的大文件/</div>
+      <div>python | 迭代器</div>
+      <div>https://jfsas.github.io/2025/08/03/python-迭代器与可迭代方法以及for循环原理/</div>
     </div>
     <div class="license-meta">
       
@@ -354,7 +378,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月30日</div>
+          <div>2025年8月3日</div>
         </div>
       
       
@@ -386,18 +410,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/03/python-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E5%8F%AF%E8%BF%AD%E4%BB%A3%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8Afor%E5%BE%AA%E7%8E%AF%E5%8E%9F%E7%90%86/" title="python | 迭代器">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">python | 迭代器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/08/%E4%BD%BF%E7%94%A8OpenVPN%E8%BF%9E%E6%8E%A5%E6%9C%89%E5%85%AC%E7%BD%91IP%E4%B8%8E%E6%97%A0%E5%85%AC%E7%BD%91IP%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="使用OpenVPN连接有公网IP与无公网IP的服务器">
-                        <span class="hidden-mobile">使用OpenVPN连接有公网IP与无公网IP的服务器</span>
+                      <a href="/2025/04/30/%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8Fcommit%E7%9A%84%E5%A4%A7%E6%96%87%E4%BB%B6/" title="删除已经commit的大文件">
+                        <span class="hidden-mobile">删除已经commit的大文件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
